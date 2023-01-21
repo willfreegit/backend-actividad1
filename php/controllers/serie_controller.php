@@ -13,6 +13,20 @@ require_once('../models/Serie.php');
     } 
     CloseConn($conn);
     return $list_series;
-}
+   }
+
+   function saveSerie($title, $seasons, $episodes, $idplatform, $iddirector){
+    $conn = OpenConn();
+   
+    $query= "INSERT INTO series(title, seasons, episodes, idplatform, iddirector) VALUES('{$title}','{$seasons}','{$episodes}','{$idplatform}','{$iddirector}')";
+    $add_serie = mysqli_query($conn,$query);
+    CloseConn($conn);
+    if($add_serie){
+        return true;
+    } else {
+        echo "Error insert series: ". mysqli_error($conn);
+        return false;
+    }
+   }
              
     ?>

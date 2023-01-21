@@ -3,7 +3,7 @@
  
   <div class="container">
     <h1 class="text-center" >Operaciones CRUD Series</h1>
-      <a href="create.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Create New User</a>
+      <a href="create.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Crear nueva serie</a>
  
         <table class="table table-striped table-bordered table-hover">
           <thead class="table-dark">
