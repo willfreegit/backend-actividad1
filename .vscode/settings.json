@@ -1,0 +1,27 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Test",
+            "database": "Test",
+            "username": "DBVIU2022",
+            "password": "DBVIU2022"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Actividad1",
+            "database": "actividad1",
+            "username": "root",
+            "password": ""
+        }
+    ]
+}
