@@ -47,5 +47,12 @@ require_once('../models/Serie.php');
     CloseConn($conn);
     return $serie;
    }
-             
+       
+   
+   function deleteSerie($id){
+    $conn = OpenConn();
+    $query = "DELETE FROM series WHERE id = {$id}"; 
+    $delete_query= mysqli_query($conn, $query);
+    CloseConn($conn);
+   }
     ?>
