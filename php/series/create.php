@@ -50,9 +50,8 @@
     </form> 
   </div>
  
-   <!-- a BACK button to go to the home page -->
   <div class="container text-center mt-5">
-    <a href="series.php" class="btn btn-warning mt-5"> Back </a>
+    <a href="series.php" class="btn btn-warning mt-5"> Regresar </a>
   <div>
  
 <!-- Footer -->

@@ -10,9 +10,11 @@
             <tr>
               <th  scope="col">ID</th>
               <th  scope="col">Titulo</th>
-              <th  scope="col">Email</th>
-              <th  scope="col"> Password</th>
-              <th  scope="col" colspan="3" class="text-center">CRUD Operations</th>
+              <th  scope="col">Temporadas</th>
+              <th  scope="col">Episodios</th>
+              <th  scope="col">Plataforma</th>
+              <th  scope="col">Director</th>
+              <th  scope="col" colspan="2" class="text-center">Operaciones CRUD</th>
             </tr>  
           </thead>
             <tbody>
@@ -25,10 +27,12 @@
             echo "<tr >";
             echo " <th scope='row'>{$serie->getId()}</th>";
             echo " <td >{$serie->getTitle()}</td>";
-            echo " <td >{$serie->getId()}</td>";
-            echo " <td >{$serie->getId()}</td>";
-            echo " <td class='text-center'> <a href='view.php?user_id={$serie->getId()}' class='btn btn-primary'> <i class='bi bi-eye'></i> View</a> </td>";
-            echo " <td class='text-center' > <a href='update.php?edit&user_id={$serie->getId()}' class='btn btn-secondary'><i class='bi bi-pencil'></i> EDIT</a> </td>";
+            echo " <td >{$serie->getSeasons()}</td>";
+            echo " <td >{$serie->getEpisodes()}</td>";
+            echo " <td >{$serie->getIdplatform()}</td>";
+            echo " <td >{$serie->getIddirector()}</td>";
+            //echo " <td class='text-center'> <a href='view.php?user_id={$serie->getId()}' class='btn btn-primary'> <i class='bi bi-eye'></i> View</a> </td>";
+            echo " <td class='text-center' > <a href='update.php?edit&serie_id={$serie->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDIT</a> </td>";
             echo " <td  class='text-center'>  <a href='delete.php?delete={$serie->getId()}' class='btn btn-danger'> <i class='bi bi-trash'></i> DELETE</a> </td>";
             echo " </tr> ";
            }
@@ -38,9 +42,8 @@
         </table>
   </div>
  
-<!-- a BACK button to go to the index page -->
 <div class="container text-center mt-5">
-      <a href="../index.php" class="btn btn-warning mt-5"> Back </a>
+      <a href="../index.html" class="btn btn-warning mt-5"> Regresar </a>
     <div>
  
 <!-- Footer -->
