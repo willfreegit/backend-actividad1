@@ -2,7 +2,7 @@
 <?php  include "header.php" ?>
  
 <?php
-   require_once('../controllers/serie_controller.php');
+   require_once('../../controllers/serie_controller.php');
    if(isset($_GET['serie_id']))
     {
       $serie_id = $_GET['serie_id']; 
@@ -44,7 +44,7 @@
   </div>
  
     <div class="container text-center mt-5">
-      <a href="series.php" class="btn btn-warning mt-5"> Regresar </a>
+      <a href="actors.php" class="btn btn-warning mt-5"> Regresar </a>
     <div>
  
     <?php include "footer.php" ?>

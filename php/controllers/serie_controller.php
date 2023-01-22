@@ -1,6 +1,7 @@
 <?php
-include "../../php/db/connection_db.php";
-require_once('../models/Serie.php');
+require_once('../../models/Serie.php');
+include "../../db/connection_db.php";
+
 
     function getSeries(){
     $conn = OpenConn();    

@@ -2,7 +2,7 @@
 <?php  include "header.php" ?>
  
 <?php 
-  require_once('../controllers/actor_controller.php');
+  require_once('../../controllers/actor_controller.php');
   if(isset($_POST['create'])) 
     {      
       $title = $_POST['title'];
@@ -51,7 +51,7 @@
   </div>
  
   <div class="container text-center mt-5">
-    <a href="series.php" class="btn btn-warning mt-5"> Regresar </a>
+    <a href="actors.php" class="btn btn-warning mt-5"> Regresar </a>
   <div>
  
 <!-- Footer -->
