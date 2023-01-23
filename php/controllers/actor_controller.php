@@ -6,7 +6,7 @@ function listActors(){
     $mysqli = (new CconexionDB)->initConnectionDb();
 
     $actorList = [];
-    $query="SELECT * FROM actors";               
+    $query="SELECT id, firstname,lastname,DATE_FORMAT(DOB,'%d/%m/%Y') as DOB,idcountry FROM actors";               
 
     $actores= mysqli_query($mysqli,$query);   
     
