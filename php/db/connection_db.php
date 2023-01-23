@@ -4,7 +4,7 @@ function OpenConn(){
   $host = 'localhost';
   $user = 'root';   
   $pass = "";   
-  $database = 'actividad1';
+  $database = 'php_crud';
   $conn = mysqli_connect($host,$user,$pass,$database);   
   if (!$conn) {                                             
       die("Connection failed: " . mysqli_connect_error());     
@@ -22,7 +22,7 @@ function CloseConn($conn){
     $dbhost = 'localhost';
     $dbuser = 'root';   
     $dbpass = "";   
-    $dbdatabase = 'actividad1';
+    $dbdatabase = 'php_crud';
     
     $mysqli = (new mysqli($dbhost,$dbuser,$dbpass,$dbdatabase));   
     if ($mysqli->connect_error) {                                               
