@@ -34,7 +34,8 @@
      
       <div class="form-group">
         <label for="DOB" class="form-label">Fecha de Nacimiento</label>
-        <input type="date" name="DOB"  class="form-control">
+        <input type="date"  placeholder="dd-mm-yyyy" value=""
+        min="1925-01-01" max="2022-12-31" name="DOB"  class="form-control">
       </div>    
       <div class="form-group">
         <label for="idcountry" class="form-label">Nacionalidad</label>
