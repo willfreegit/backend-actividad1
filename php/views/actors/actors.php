@@ -58,7 +58,7 @@
    </div>
 
    <div class="container text-center mt-5">
-      <a href="../../index.html" class="btn btn-warning mt-5"> Regresar </a>
+      <a href="../../../index.html" class="btn btn-warning mt-5"> Regresar </a>
     <div>
  
 <!-- Footer -->
