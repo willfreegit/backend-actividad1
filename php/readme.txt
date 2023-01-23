@@ -1,1 +1,0 @@
-Por hacer los sps para verficar borrado
