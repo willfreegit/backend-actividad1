@@ -1,6 +1,4 @@
 <?php
-/*include "../../db/connection_db.php";*/
-require_once('../../db/connection_db.php');
 class Actor {
 
         private $id;
@@ -9,7 +7,7 @@ class Actor {
         private $DOB;
         private $idcountry;
 
-        public function _construct($idActor=null,$firstnameActor=null,$lastnameActor=null,$DOBActor=null,$idcountryActor=null)
+        public function __construct($idActor,$firstnameActor,$lastnameActor,$DOBActor,$idcountryActor)
         {
             $this->id = $idActor;
             $this->firstname = $firstnameActor;
@@ -19,73 +17,56 @@ class Actor {
 
         }
 
-        public function getId(){
-            return $this->id;
-        }
-
-        public function setId($id){
+        public function setId($id)
+        {
             $this->id = $id;
         }
-
-        /**
-         * @return firstname
-         */
-        public function getfirstname(){
+    
+        public function getId()
+        {
+            return $this->id;
+        }
+    
+        public function setFirstname($firstname)
+        {
+            $this->firstname = $firstname;
+        }
+    
+        public function getFirstname()
+        {
             return $this->firstname;
         }
-
-        public function setfirstname($firstname){
-            $this->firstname=$firstname;
+    
+        public function setLastname($lastname)
+        {
+            $this->lastname = $lastname;
         }
-
-        /**
-         * @return lastname
-         */
-        public function getlastname(){
+    
+        public function getLastname()
+        {
             return $this->lastname;
         }
-
-        public function setlastname($lastname){
-            $this->lastname=$lastname;
+    
+        public function setDOB($DOB)
+        {
+            $this->DOB = $DOB;
         }
-
-        /**
-         * @return DOB
-         */
-        public function getDOB(){
+    
+        public function getDOB()
+        {
             return $this->DOB;
         }
-
-        public function setDOB($DOB){
-            $this->DOB=$DOB;
+    
+        public function setIdcountry($idcountry)
+        {
+            $this->idcountry = $idcountry;
         }
-
-         /**
-         * @return idcountry
-         */
-        public function getidcountry(){
+    
+        public function getIdcountry()
+        {
             return $this->idcountry;
         }
-
-        public function setidcountry($idcountry){
-            $this->idcountry=$idcountry;
-        }
-  
-     
-          
-        public function getAll()
-        {   
-            $mysqli = (new CconexionDB)->initConnectionDb();
-            $query = $mysqli-> query("SELECT * FROM actors") ;
-            $listData = [];
-            foreach ($query as $item) {
-            $itemObject = new Actor($item['id'], $item['firstname'], $item['lastname'], $item['DOB'], $item['idcountry'] ) ;
-            array_push( $listData, $itemObject) ;
-            }
-        $mysqli ->close( ) ;
-        return $listData;
-        }
-  
+    
 }
 
 

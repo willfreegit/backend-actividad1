@@ -5,44 +5,40 @@
   require_once('../../controllers/actor_controller.php');
   if(isset($_POST['create'])) 
     {      
-      $title = $_POST['title'];
-      $seasons = $_POST['seasons'];
-      $episodes = $_POST['episodes'];
-      $idplatform = $_POST['idplatform'];
-      $iddirector = $_POST['iddirector'];
-      $add = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector);
+      $firstname = $_POST['firstname'];
+      $lastname = $_POST['lastname'];
+      $DOB = $_POST['DOB'];
+      $idcountry = $_POST['idcountry'];
+      
+      $add = saveActor($firstname, $lastname, $DOB, $idcountry);
       if (!$add) {
-          echo "A ocurrido un error al crear la serie ";
+          echo "A ocurrido un error al crear el actor";
       } else { 
-          echo "<script type='text/javascript'>alert('Serie creada correctamente!')</script>";
+          echo "<script type='text/javascript'>alert('Actor creado correctamente!')</script>";
       }         
     }
 ?>
  
-<h1 class="text-center">Agregar nueva serie</h1>
+<h1 class="text-center">Agregar nuevo actor</h1>
   <div class="container">
     <form action="" method="post">
       <div class="form-group">
-        <label for="title" class="form-label">Titulo</label>
-        <input type="text" name="title"  class="form-control">
+        <label for="firstname" class="form-label">Nombre</label>
+        <input type="text" name="firstname"  class="form-control">
       </div>
  
       <div class="form-group">
-        <label for="seasons" class="form-label">Temporadas</label>
-        <input type="text" name="seasons"  class="form-control">
+        <label for="lastname" class="form-label">Apellido</label>
+        <input type="text" name="lastname"  class="form-control">
       </div>
      
       <div class="form-group">
-        <label for="episodes" class="form-label">Episodios</label>
-        <input type="text" name="episodes"  class="form-control">
+        <label for="DOB" class="form-label">Fecha de Nacimiento</label>
+        <input type="date" name="DOB"  class="form-control">
       </div>    
       <div class="form-group">
-        <label for="idplatform" class="form-label">Plataforma</label>
-        <input type="text" name="idplatform"  class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="iddirector" class="form-label">Director</label>
-        <input type="text" name="iddirector"  class="form-control">
+        <label for="idcountry" class="form-label">Nacionalidad</label>
+        <input type="text" name="idcountry"  class="form-control">
       </div>
       <div class="form-group">
         <input type="submit"  name="create" class="btn btn-primary mt-2" value="submit">
