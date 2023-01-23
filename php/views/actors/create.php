@@ -8,8 +8,32 @@
   $actorCreated= false;
   
   if(isset($_POST['createBtn'])) 
-    {   echo "A ocurrido un error al crear el actor";   
+    {   //Se valida si vino del boton crear;   
       $sendData = true;
+
+    //controles en formulario para validar que no esten vacios
+    if(!isset($_POST['firstname']))
+        {echo "Falta el nombre del Actor";
+          $sendData = false;
+        }
+
+    if(!isset($_POST['lastname']))
+      {echo "Falta el apellido del Actor";
+        $sendData = false;
+      }
+
+    if(!isset($_POST['DOB']))
+      {echo "Falta la fecha de nacimiento del Actor";
+        $sendData = false;
+      }
+
+      if(!isset($_POST['idcountry']))
+      {
+          echo "Falta la nacionalidad del Actor";
+        $sendData = false;
+      }
+          
+
     }
  
   if ($sendData)
@@ -20,15 +44,8 @@
         $DOB = $_POST['DOB'];
         $idcountry = $_POST['idcountry'];
         
-        $add = storeActor($firstname, $lastname, $DOB, $idcountry);
-        if (!$add) {
-            echo "A ocurrido un error al crear el actor";
-        } else { 
-            echo "<script type='text/javascript'>alert('Actor creado correctamente!')</script>";
-                
-      }
-
-   
+        $actorCreated = storeActor($firstname, $lastname, $DOB, $idcountry);
+  
     }
     if (!$sendData)
     {
@@ -41,9 +58,7 @@
       <div class="form-group">
         <label for="firstname" class="form-label">Nombre</label>
         <input type="text" name="firstname"  class="form-control" 
-        required placeholder="Ingrese un nombre"
-        oninvalid="this.setCustomValidity('Ingrese el nombre del Actor')"
-        oninput="this.setCustomValidity('')"/>
+  />
       </div>
  
       <div class="form-group">
@@ -56,7 +71,7 @@
       <div class="form-group">
         <label for="DOB" class="form-label">Fecha de Nacimiento</label>
         <input type="date"  placeholder="dd-mm-yyyy" value=""
-        min="1925-01-01" max="2022-12-31" name="DOB"  class="form-control" required="true">
+        min="1925-01-01" max="2022-12-31" name="DOB"  class="form-control" >
       </div>    
       <div class="form-group">
         <label for="idcountry" class="form-label">Nacionalidad</label>
@@ -75,7 +90,7 @@
   <div>
 <?php
     } else { 
-      if ($platformCreated) {
+      if ($actorCreated) {
      
   ?>
       <div class=row>

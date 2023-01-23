@@ -90,20 +90,21 @@ class Actor {
            }
         
 
-        function saveActor(){
+        function saveActor()
+        {
             $actorcreated=false;
     
             $mysqli = (new CconexionDB)->initConnectionDb();
            
             $query= "INSERT INTO actors(firstname, lastname, DOB, idcountry) VALUES('$this->firstname','$this->lastname','$this->DOB','$this->idcountry')";
-            echo $query;
+            
             $add_actor = mysqli_query($mysqli,$query);
             $mysqli ->close( ) ;
             
             if($add_actor){
                 $actorcreated=true;
             } else {
-                echo "Error insert actor: ". mysqli_error($mysqli);
+                echo " Error insert actor: ". mysqli_error($mysqli);
             }
             return  $actorcreated;
         }
