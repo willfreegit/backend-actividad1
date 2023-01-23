@@ -21,7 +21,7 @@ function storeActor($firstname, $lastname, $DOB, $idcountry)
     $actorCreated=true;
     if (empty($firstname))
     {
-        echo "Falta el dato de nombre del actor";
+        echo nl2br("Falta el dato de nombre del actor\n");
         $actorCreated=false;
     }
     

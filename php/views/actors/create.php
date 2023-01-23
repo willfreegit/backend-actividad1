@@ -11,29 +11,6 @@
     {   //Se valida si vino del boton crear;   
       $sendData = true;
 
-    //controles en formulario para validar que no esten vacios
-    if(!isset($_POST['firstname']))
-        {echo "Falta el nombre del Actor";
-          $sendData = false;
-        }
-
-    if(!isset($_POST['lastname']))
-      {echo "Falta el apellido del Actor";
-        $sendData = false;
-      }
-
-    if(!isset($_POST['DOB']))
-      {echo "Falta la fecha de nacimiento del Actor";
-        $sendData = false;
-      }
-
-      if(!isset($_POST['idcountry']))
-      {
-          echo "Falta la nacionalidad del Actor";
-        $sendData = false;
-      }
-          
-
     }
  
   if ($sendData)
@@ -57,8 +34,9 @@
     <form name="create_actor" action="" method="post">
       <div class="form-group">
         <label for="firstname" class="form-label">Nombre</label>
-        <input type="text" name="firstname"  class="form-control" 
-  />
+        <input type="text" name="firstname"  class="form-control"       required placeholder="Ingrese un nombre"
+        oninvalid="this.setCustomValidity('Ingrese el nombre del Actor')"
+        oninput="this.setCustomValidity('')"/>
       </div>
  
       <div class="form-group">
@@ -71,11 +49,13 @@
       <div class="form-group">
         <label for="DOB" class="form-label">Fecha de Nacimiento</label>
         <input type="date"  placeholder="dd-mm-yyyy" value=""
-        min="1925-01-01" max="2022-12-31" name="DOB"  class="form-control" >
+        min="1925-01-01" max="2022-12-31" name="DOB"  class="form-control" required placeholder="Escoja una fecha"
+        oninvalid="this.setCustomValidity('Escoja la fecha de nacimiento del actor')"
+        oninput="this.setCustomValidity('')"/>
       </div>    
       <div class="form-group">
         <label for="idcountry" class="form-label">Nacionalidad</label>
-        <input type="text" name="idcountry"  class="form-control"  required placeholder="Escoja una nacionalidad"
+        <input type="text" name="idcountry"  class="form-control" required placeholder="Escoja una nacionalidad"
         oninvalid="this.setCustomValidity('Escoja una nacionalidad')"
         oninput="this.setCustomValidity('')"/>
       </div>
