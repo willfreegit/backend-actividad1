@@ -1,5 +1,18 @@
 <!-- Header -->
 <?php include "header.php"?>
+
+<script>
+    function confirmacion() {
+        var respuesta = confirm("¿Desea realmente borrar el registro?");
+        if (respuesta == true) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+</script>
+
  <?php
  require_once('../../controllers/actor_controller.php');
  ?>
@@ -37,7 +50,7 @@
 
              //echo " <td class='text-center'> <a href='view.php?user_id={$serie->getId()}' class='btn btn-primary'> <i class='bi bi-eye'></i> View</a> </td>";
              echo " <td class='text-center' > <a href='update.php?id={$actor->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
-             echo " <td  class='text-center'>  <a href='delete.php?id={$actor->getId()}' class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";
+             echo " <td  class='text-center'>  <a onclick='return confirmacion()' href='delete.php?id={$actor->getId()}' class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";
              echo " </tr> ";
             }
                  ?>

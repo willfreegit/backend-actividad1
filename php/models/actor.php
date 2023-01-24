@@ -201,7 +201,7 @@ class Actor {
             else
                 {
                     $query= "UPDATE actors set firstname='".$this->firstname."', lastname='".$this->lastname."', DOB='".$this->DOB."', idcountry=".$this->idcountry." where id=".$this->id;
-                    echo " select: ". $query;
+                    //echo " select: ". $query;
                     $add_actor = mysqli_query($mysqli,$query);
                     $mysqli ->close( ) ;
                     
@@ -272,7 +272,7 @@ class Actor {
             else
                 {
                     $query= "delete from actors where id=".$this->id;
-                    echo " select: ". $query;
+                    //echo " select: ". $query;
                     $add_actor = mysqli_query($mysqli,$query);
                     $mysqli ->close( ) ;
                     
