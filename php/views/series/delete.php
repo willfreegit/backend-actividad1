@@ -1,6 +1,6 @@
 <?php  include "header.php" ?>
 <?php 
-     require_once('../controllers/serie_controller.php');
+     require_once('../../controllers/serie_controller.php');
      echo 'ingresa a borrar';
      if(isset($_GET['delete']))
      {

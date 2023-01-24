@@ -2,7 +2,7 @@
 <?php  include "header.php" ?>
  
 <?php
-   require_once('../controllers/serie_controller.php');
+   require_once('../../controllers/serie_controller.php');
    if(isset($_GET['serie_id']))
     {
       $serie_id = $_GET['serie_id']; 
