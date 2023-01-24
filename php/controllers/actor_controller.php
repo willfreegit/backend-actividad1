@@ -58,11 +58,11 @@ function storeActor($firstname, $lastname, $DOB, $idcountry)
     return $actorCreated;
 }
 
-function updateActor($idActor,$firstname, $lastname, $DOB, $idcountry)
+function updateActor($actorId,$firstname, $lastname, $DOB, $idcountry)
 {
     $actorEdited=true;
     
-    if (empty($idActor))
+    if (empty($actorId))
     {
         echo nl2br("Falta el id del actor\n");
         $actorEdited=false;
@@ -100,19 +100,29 @@ function updateActor($idActor,$firstname, $lastname, $DOB, $idcountry)
 
     if ($actorEdited)
     {
-        $actorEditor = new Actor ($idActor,$firstname, $lastname, $DOB, $idcountry );
+        $actorEditor = new Actor ($actorId,$firstname, $lastname, $DOB, $idcountry );
         $actorEdited = $actorEditor->updateActor();
     }
     
     return $actorEdited;
 }
 
-function getActorData($idActor)
+function getActorData($actorId)
 {
-    $actor = new Actor($idActor);
+    $actor = new Actor($actorId);
     $actorObject = $actor->getItem();
 
     return $actorObject;
 }
 
+function deleteActor($actorId)
+{
+    $actor = new Actor($actorId);
+    $actorDeleted = $actor->delete();
+
+    return $actorDeleted;
+}
+
 ?>
+
+

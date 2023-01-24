@@ -8,9 +8,9 @@ class Actor {
         private $idcountry;
         private $nationality;
 
-        public function __construct($idActor=null,$firstnameActor=null,$lastnameActor=null,$DOBActor=null,$idcountryActor=null,$nationality=null)
+        public function __construct($actorId=null,$firstnameActor=null,$lastnameActor=null,$DOBActor=null,$idcountryActor=null,$nationality=null)
         {
-            $this->id = $idActor;
+            $this->id = $actorId;
             $this->firstname = $firstnameActor;
             $this->lastname = $lastnameActor;
             $this->DOB = $DOBActor;
@@ -162,24 +162,24 @@ class Actor {
 
         function updateActor()
         {
-            $actorcreated=true;
+            $actorupdated=true;
     
             $mysqli = (new CconexionDB)->initConnectionDb();
 
             //TO DO revisar que los parametros a grabar no sean nulos
 
             $var=$this->id;
-            if($var === null) {echo "Error en insert del actor: El id del actor esta vacio";  $actorcreated=false;}
+            if($var === null) {echo "Error en insert del actor: El id del actor esta vacio";  $actorupdated=false;}
             $var=$this->firstname;
-            if($var === null) {echo "Error en insert del actor: El nombre del actor esta vacio";  $actorcreated=false;}
+            if($var === null) {echo "Error en insert del actor: El nombre del actor esta vacio";  $actorupdated=false;}
             $var=$this->lastname;
-            if($var === null) {echo "Error en insert del actor: El apellido del actor esta vacio";  $actorcreated=false;}
+            if($var === null) {echo "Error en insert del actor: El apellido del actor esta vacio";  $actorupdated=false;}
             $var=$this->DOB;
-            if($var === null || $var === "00/00/0000") {echo "Error en insert del actor: La fecha de nacimiento del actor esta vacia"; $actorcreated=false;}
+            if($var === null || $var === "00/00/0000") {echo "Error en insert del actor: La fecha de nacimiento del actor esta vacia"; $actorupdated=false;}
             $var=$this->idcountry;
-            if($var === null) {echo "Error en insert del actor: La nacionalidad del actor esta vacia"; $actorcreated=false;}
+            if($var === null) {echo "Error en insert del actor: La nacionalidad del actor esta vacia"; $actorupdated=false;}
 
-            if (!$actorcreated)
+            if (!$actorupdated)
             {
                 $mysqli ->close( );
             }
@@ -194,7 +194,7 @@ class Actor {
             $rowcount=mysqli_num_rows($actores);
             if ($rowcount>0) 
                 {
-                    $actorcreated=false;
+                    $actorupdated=false;
                     $mysqli ->close( ) ;
                     echo " Error esta duplicado el actor no se puede actualizar";
                 }
@@ -206,15 +206,15 @@ class Actor {
                     $mysqli ->close( ) ;
                     
                     if($add_actor){
-                        $actorcreated=true;
+                        $actorupdated=true;
                     } else {
-                        $actorcreated=false;
+                        $actorupdated=false;
                         echo " Error en actualización del actor: ". mysqli_error($mysqli);
                     }
                 
                 }
             }
-            return  $actorcreated;
+            return  $actorupdated;
         }
 
 
@@ -228,8 +228,7 @@ class Actor {
             $actores= mysqli_query($mysqli,$query);   
             
             foreach ($actores as $item)
-            {
-                $itemObject =new Actor($item['id'], $item['firstname'], $item['lastname'], $item['DOB'], $item['idcountry'],$item['nationality']);
+            {  $itemObject =new Actor($item['id'], $item['firstname'], $item['lastname'], $item['DOB'], $item['idcountry'],$item['nationality']);
                 break;
             }
         
@@ -238,7 +237,57 @@ class Actor {
            }
         
 
+           function delete()
+           {
+   
+            $actordeleted=true;
+    
+            $mysqli = (new CconexionDB)->initConnectionDb();
 
+            //TO DO revisar que los parametros a grabar no sean nulos
+
+            $var=$this->id;
+
+            if($var === null)
+            {
+                echo "Error en insert del actor: El id del actor esta vacio";  
+                $actordeleted=false;
+                $mysqli ->close( );
+            }
+            else 
+            {
+           /*Se realiza una comprobacion para ver si no existen actores asignados a series antes de borrarlos*/
+
+            $query= "select * from series_cast where idactor=".$this->id;
+           // echo " select: ". $query;
+           
+            $actores= mysqli_query($mysqli,$query);   
+            $rowcount=mysqli_num_rows($actores);
+            if ($rowcount>0) 
+                {
+                    $actordeleted=false;
+                    $mysqli ->close( ) ;
+                    echo " Error el actor esta asignado a una serie";
+                }
+            else
+                {
+                    $query= "delete from actors where id=".$this->id;
+                    echo " select: ". $query;
+                    $add_actor = mysqli_query($mysqli,$query);
+                    $mysqli ->close( ) ;
+                    
+                    if($add_actor){
+                        $actordeleted=true;
+                    } else {
+                        $actordeleted=false;
+                        echo " Error en el borrado del actor: ". mysqli_error($mysqli);
+                    }
+                
+                }
+            }
+            return  $actordeleted;
+        }
+        
 
     }
 

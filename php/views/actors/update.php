@@ -5,8 +5,8 @@
   require_once('../../controllers/actor_controller.php');
   require_once('../../controllers/country_controller.php');
   
-  $idActor = $_GET['id'];
-  $actorObject = getActorData($idActor);
+  $actorId = $_GET['id'];
+  $actorObject = getActorData($actorId);
   
   $sendData = false;
   $actorEdited= false;
@@ -27,7 +27,7 @@
         $DOB = $_POST['DOB'];
         $idcountry = $_POST['idcountry'];
         
-        $actorEdited = updateActor($idActor,$firstname, $lastname, $DOB, $idcountry);
+        $actorEdited = updateActor($actorId,$firstname, $lastname, $DOB, $idcountry);
   
     }
     if (!$sendData)
@@ -69,8 +69,9 @@
         oninput="this.setCustomValidity('')" value="<?php if(isset($actorObject)){
           echo $fechastr;}?>"
         />
-        
-          
+
+      
+         
       <div class="form-group">
         <label for="idcountry" class="form-label">Nacionalidad</label>
 
@@ -117,7 +118,7 @@
 
       <div class="form-group">
         <input id="id" type="hidden" name="id"  class="form-control" 
-         value="<?php echo $idActor;?>" />
+         value="<?php echo $actorId;?>" />
       </div>
 
       <div class="form-group">
@@ -155,7 +156,8 @@
       }
     }
     ?>   
- 
+
+
 <!-- Footer -->
 <?php include "footer.php" ?>
 
