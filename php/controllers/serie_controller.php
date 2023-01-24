@@ -6,13 +6,19 @@ require_once('../../models/Serie.php');
     return $list_series;
    }
 
-   function saveSerie($title, $seasons, $episodes, $idplatform, $iddirector){
-    $add_serie = saveSerie_model($title, $seasons, $episodes, $idplatform, $iddirector);
-    if($add_serie){
-        return true;
-    } else {
-        echo "Error insert series: ";
-        return false;
+   function saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors){
+    if (empty($actors)) {
+        echo '<p class="error alert alert-danger mt-3">Debe seleccionar por lo menos un actor</p>';
+        return;
+    }
+    $id = saveSerie_model($title, $seasons, $episodes, $idplatform, $iddirector);
+    if ($id > 0) {
+        foreach ($actors as $selected) {
+            saveSeriesCast_model($selected, $id, 'actor');
+        }
+        echo "<script type='text/javascript'>alert('Serie creada correctamente!')</script>";
+    } else { 
+        echo "A ocurrido un error al crear la serie ";
     }
    }
 

@@ -6,7 +6,6 @@
   require_once('../../controllers/actor_controller.php');
 
   $actors = listactors();
-  print_r($actors);
 
   if(isset($_POST['create'])) 
     {      
@@ -15,12 +14,8 @@
       $episodes = $_POST['episodes'];
       $idplatform = $_POST['idplatform'];
       $iddirector = $_POST['iddirector'];
-      $add = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector);
-      if (!$add) {
-          echo "A ocurrido un error al crear la serie ";
-      } else { 
-          echo "<script type='text/javascript'>alert('Serie creada correctamente!')</script>";
-      }         
+      $actors = $_POST['actors'];
+      $add = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors);       
     }
 ?>
  
@@ -51,7 +46,7 @@
       </div>
 
       <h4>Actores</h4>
-      <select name="lang[]" multiple class="form-control">
+      <select name="actors[]" multiple class="form-control">
         <?php
         foreach($actors as $row) { ?>
 					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getFirstName(); ?></option>

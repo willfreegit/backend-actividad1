@@ -101,17 +101,27 @@
     }
 
     function saveSerie_model($title, $seasons, $episodes, $idplatform, $iddirector){
+        $id = -1;
         $conn = OpenConn();
-       
         $query= "INSERT INTO series(title, seasons, episodes, idplatform, iddirector) VALUES('{$title}','{$seasons}','{$episodes}','{$idplatform}','{$iddirector}')";
         $add_serie = mysqli_query($conn,$query);
-        CloseConn($conn);
-        if($add_serie){
-            return true;
+        if ($add_serie) {
+            $id = mysqli_insert_id($conn);
         } else {
-            echo "Error insert series: ". mysqli_error($conn);
-            return false;
+            echo "A ocurrido un error al crear la serie en el modelo ";
         }
+        CloseConn($conn); 
+        return $id;
+       }
+
+       function saveSeriesCast_model($idactor, $idserie, $role){
+        $conn = OpenConn();
+        $query= "INSERT INTO series_cast(idactor, idserie, role) VALUES('{$idactor}','{$idserie}','{$role}')";
+        $add_serie = mysqli_query($conn,$query);
+        CloseConn($conn);
+        if ($add_serie) {
+            echo "A ocurrido un error al crear seriescast ";
+        } 
        }
 
        function updateSerie_model($id, $title, $seasons, $episodes){
