@@ -49,8 +49,8 @@
      
       <div class="form-group">
         <label for="DOB" class="form-label">Fecha de Nacimiento</label>
-        <input type="date"  placeholder="dd-mm-yyyy" value=""
-        min="1925-01-01" max="2022-12-31" name="DOB"  class="form-control" required placeholder="Escoja una fecha"
+        <input type="date"   value="" required pattern="\d{2}-\d{2}-\d{4}" 
+        min="1925-01-01" max="2022-12-31" name="DOB"  class="form-control" required 
         oninvalid="this.setCustomValidity('Escoja la fecha de nacimiento del actor')"
         oninput="this.setCustomValidity('')"/>
       </div>    

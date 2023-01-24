@@ -110,16 +110,33 @@ class Actor {
             $actorcreated=false;
     
             $mysqli = (new CconexionDB)->initConnectionDb();
+
+            /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
+
+            $query= "select * from actors where firstname='".$this->firstname."' and lastname='".$this->lastname."' and DOB='".$this->DOB."' and idcountry=".$this->idcountry;
+           // echo " select: ". $query;
            
-            $query= "INSERT INTO actors(firstname, lastname, DOB, idcountry) VALUES('$this->firstname','$this->lastname','$this->DOB','$this->idcountry')";
-            
-            $add_actor = mysqli_query($mysqli,$query);
-            $mysqli ->close( ) ;
-            
-            if($add_actor){
-                $actorcreated=true;
-            } else {
-                echo " Error insert actor: ". mysqli_error($mysqli);
+            $actores= mysqli_query($mysqli,$query);   
+            $rowcount=mysqli_num_rows($actores);
+            if ($rowcount>0)
+                {
+                    $actorcreated=false;
+                    $mysqli ->close( ) ;
+                    echo " Error esta duplicado el actor no se puede insertar";
+                }
+            else
+            {
+                $query= "INSERT INTO actors(firstname, lastname, DOB, idcountry) VALUES('$this->firstname','$this->lastname','$this->DOB','$this->idcountry')";
+                
+                $add_actor = mysqli_query($mysqli,$query);
+                $mysqli ->close( ) ;
+                
+                if($add_actor){
+                    $actorcreated=true;
+                } else {
+                    echo " Error en insert del actor: ". mysqli_error($mysqli);
+                }
+                
             }
             return  $actorcreated;
         }
