@@ -58,4 +58,61 @@ function storeActor($firstname, $lastname, $DOB, $idcountry)
     return $actorCreated;
 }
 
+function updateActor($idActor,$firstname, $lastname, $DOB, $idcountry)
+{
+    $actorEdited=true;
+    
+    if (empty($idActor))
+    {
+        echo nl2br("Falta el id del actor\n");
+        $actorEdited=false;
+    }
+
+    if (empty($firstname))
+    {
+        echo nl2br("Falta el dato de nombre del actor\n");
+        $actorEdited=false;
+    }
+    
+    if (empty($lastname))
+    {
+        echo nl2br("Falta el dato de apellido del actor\n");
+        $actorEdited=false;
+    }
+
+    if (empty($DOB))
+    {
+        echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
+        $actorEdited=false;
+    }
+
+    if ($DOB=="00/00/0000")
+    {
+        echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
+        $actorEdited=false;
+    }
+
+    if (empty($idcountry))
+    {
+        echo nl2br("Falta la nacionalidad del actor\n");
+        $actorEdited=false;
+    }
+
+    if ($actorEdited)
+    {
+        $actorEditor = new Actor ($idActor,$firstname, $lastname, $DOB, $idcountry );
+        $actorEdited = $actorEditor->updateActor();
+    }
+    
+    return $actorEdited;
+}
+
+function getActorData($idActor)
+{
+    $actor = new Actor($idActor);
+    $actorObject = $actor->getItem();
+
+    return $actorObject;
+}
+
 ?>
