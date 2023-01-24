@@ -3,6 +3,11 @@
  
 <?php 
   require_once('../../controllers/serie_controller.php');
+  require_once('../../controllers/actor_controller.php');
+
+  $actors = listactors();
+  print_r($actors);
+
   if(isset($_POST['create'])) 
     {      
       $title = $_POST['title'];
@@ -44,6 +49,15 @@
         <label for="iddirector" class="form-label">Director</label>
         <input type="text" name="iddirector"  class="form-control">
       </div>
+
+      <h4>Actores</h4>
+      <select name="lang[]" multiple class="form-control">
+        <?php
+        foreach($actors as $row) { ?>
+					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getFirstName(); ?></option>
+				<?php } ?>
+      </select>
+
       <div class="form-group">
         <input type="submit"  name="create" class="btn btn-primary mt-2" value="submit">
       </div>
