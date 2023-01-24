@@ -3,6 +3,7 @@
  
 <?php 
   require_once('../../controllers/actor_controller.php');
+  require_once('../../controllers/country_controller.php');
   
   $sendData = false;
   $actorCreated= false;
@@ -26,7 +27,7 @@
     }
     if (!$sendData)
     {
- 
+      
 ?>
  
 <h1 class="text-center">Agregar nuevo actor</h1>
@@ -53,12 +54,31 @@
         oninvalid="this.setCustomValidity('Escoja la fecha de nacimiento del actor')"
         oninput="this.setCustomValidity('')"/>
       </div>    
+ 
+      
       <div class="form-group">
         <label for="idcountry" class="form-label">Nacionalidad</label>
-        <input type="text" name="idcountry"  class="form-control" required placeholder="Escoja una nacionalidad"
+
+        <select name="idcountry" id="idcountry"  class="form-control" required placeholder="Escoja una nacionalidad"
         oninvalid="this.setCustomValidity('Escoja una nacionalidad')"
-        oninput="this.setCustomValidity('')"/>
-      </div>
+        oninput="this.setCustomValidity('')"/>>
+
+
+        <?php
+
+          $countries = listcountries();
+          if(count($countries)> 0) 
+          {
+            foreach($countries as $country)
+            {
+              $combobit .=" <option value=\"{$country->getnum_code()}\">{$country->getnationality()}</option>"; 
+            }
+            echo $combobit;
+          }
+         ?>     
+        </select>
+</div>      
+
       <div class="form-group">
         <input type="submit"  name="createBtn" class="btn btn-primary mt-2" value="Crear">
       </div>

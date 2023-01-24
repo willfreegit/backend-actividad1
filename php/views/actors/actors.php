@@ -32,7 +32,8 @@
              echo " <td >{$actor->getfirstname()}</td>";
              echo " <td >{$actor->getlastname()}</td>";
              echo " <td >{$actor->getDOB()}</td>";
-             echo " <td >{$actor->getidcountry()}</td>";
+             echo " <td >{$actor->getnationality()}</td>";
+             //echo " <td style='visibility:hidden'>{$actor->getidcountry()}</td>";
 
              //echo " <td class='text-center'> <a href='view.php?user_id={$serie->getId()}' class='btn btn-primary'> <i class='bi bi-eye'></i> View</a> </td>";
              echo " <td class='text-center' > <a href='update.php?edit&serie_id={$actor->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";

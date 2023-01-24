@@ -9,7 +9,7 @@ function listactors()
     $actorObjectArray =[];
 
     foreach ($actorList as $actoritem) {
-        $actorObject=new Actor($actoritem->getId(),$actoritem->getFirstname(),$actoritem->getLastname(),$actoritem->getDOB(),$actoritem->getIdcountry());
+        $actorObject=new Actor($actoritem->getId(),$actoritem->getFirstname(),$actoritem->getLastname(),$actoritem->getDOB(),$actoritem->getIdcountry(),$actoritem->getnationality());
         array_push($actorObjectArray, $actorObject);
     }
     return $actorObjectArray;
@@ -27,25 +27,25 @@ function storeActor($firstname, $lastname, $DOB, $idcountry)
     
     if (empty($lastname))
     {
-        echo "Falta el dato de apellido del actor";
+        echo nl2br("Falta el dato de apellido del actor\n");
         $actorCreated=false;
     }
 
     if (empty($DOB))
     {
-        echo "Falta el dato de fecha de nacimiento del actor";
+        echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
         $actorCreated=false;
     }
 
     if ($DOB=="00/00/0000")
     {
-        echo "Falta el dato de fecha de nacimiento del actor";
+        echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
         $actorCreated=false;
     }
 
     if (empty($idcountry))
     {
-        echo "Falta la nacionalidad del actor";
+        echo nl2br("Falta la nacionalidad del actor\n");
         $actorCreated=false;
     }
 

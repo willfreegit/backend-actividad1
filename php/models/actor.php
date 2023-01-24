@@ -6,14 +6,16 @@ class Actor {
         private $lastname;
         private $DOB;
         private $idcountry;
+        private $nationality;
 
-        public function __construct($idActor=null,$firstnameActor=null,$lastnameActor=null,$DOBActor=null,$idcountryActor=null)
+        public function __construct($idActor=null,$firstnameActor=null,$lastnameActor=null,$DOBActor=null,$idcountryActor=null,$nationality=null)
         {
             $this->id = $idActor;
             $this->firstname = $firstnameActor;
             $this->lastname = $lastnameActor;
             $this->DOB = $DOBActor;
             $this->idcountry = $idcountryActor;
+            $this->nationality = $nationality;
 
         }
 
@@ -66,18 +68,31 @@ class Actor {
         {
             return $this->idcountry;
         }
+
+        public function setNationality($nationality)
+        {
+            $this->nationality = $nationality;
+        }
     
+        public function getnationality()
+        {
+            return $this->nationality;
+        }
+        
+
+
         function getAll(){
             $mysqli = (new CconexionDB)->initConnectionDb();
         
             $actorList = [];
-            $query="SELECT id, firstname,lastname,DATE_FORMAT(DOB,'%d/%m/%Y') as DOB,idcountry FROM actors";               
+            $query="SELECT id, firstname,lastname,DATE_FORMAT(DOB,'%d/%m/%Y') as DOB,idcountry,countries.nationality FROM actors, countries
+            where actors.idcountry= countries.num_code";               
         
             $actores= mysqli_query($mysqli,$query);   
             
             
             while($row = mysqli_fetch_array($actores)){
-                $iactor = new Actor($row['id'], $row['firstname'], $row['lastname'], $row['DOB'], $row['idcountry']);
+                $iactor = new Actor($row['id'], $row['firstname'], $row['lastname'], $row['DOB'], $row['idcountry'],$row['nationality']);
          /*Depuracion de valores que se envian a las vistas
                 echo $iactor->getId().'<br>';
                 echo $row['firstname'].'<br>';
