@@ -7,6 +7,19 @@ require_once('../../models/Serie.php');
    }
 
    function saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors){
+    
+    if (empty($title)) {
+        echo '<p class="error alert alert-danger mt-3">Campo título obligatorio</p>';
+        return;
+    }
+    if (empty($title)) {
+        echo '<p class="error alert alert-danger mt-3">Campo temporadas obligatorio</p>';
+        return;
+    }
+    if (empty($idplatform)) {
+        echo '<p class="error alert alert-danger mt-3">Campo plataforma obligatorio</p>';
+        return;
+    }
     if (empty($actors)) {
         echo '<p class="error alert alert-danger mt-3">Debe seleccionar por lo menos un actor</p>';
         return;
@@ -16,9 +29,9 @@ require_once('../../models/Serie.php');
         foreach ($actors as $selected) {
             saveSeriesCast_model($selected, $id, 'actor');
         }
-        echo "<script type='text/javascript'>alert('Serie creada correctamente!')</script>";
+        return true;
     } else { 
-        echo "A ocurrido un error al crear la serie ";
+        return false;
     }
    }
 

@@ -119,7 +119,7 @@
         $query= "INSERT INTO series_cast(idactor, idserie, role) VALUES('{$idactor}','{$idserie}','{$role}')";
         $add_serie = mysqli_query($conn,$query);
         CloseConn($conn);
-        if ($add_serie) {
+        if (!$add_serie) {
             echo "A ocurrido un error al crear seriescast ";
         } 
        }

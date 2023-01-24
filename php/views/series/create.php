@@ -15,7 +15,13 @@
       $idplatform = $_POST['idplatform'];
       $iddirector = $_POST['iddirector'];
       $actors = $_POST['actors'];
-      $add = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors);       
+      $add = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors);   
+      if($add){
+        echo "<script type='text/javascript'>alert('Serie creada correctamente!')</script>";
+        $actors = listactors();
+      } else {
+        echo "A ocurrido un error al crear la serie ";
+      }
     }
 ?>
  
@@ -44,7 +50,14 @@
         <label for="iddirector" class="form-label">Director</label>
         <input type="text" name="iddirector"  class="form-control">
       </div>
-
+      <h4>Director</h4>
+      <select name="director" class="form-control">
+      <option value=""disabled selected>Choose option</option>
+        <?php
+        foreach($actors as $row) { ?>
+					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getFirstName(); ?></option>
+				<?php } ?>
+      </select>
       <h4>Actores</h4>
       <select name="actors[]" multiple class="form-control">
         <?php
