@@ -107,11 +107,27 @@ class Actor {
 
         function saveActor()
         {
-            $actorcreated=false;
+            $actorcreated=true;
     
             $mysqli = (new CconexionDB)->initConnectionDb();
+            //TO DO revisar que los parametros a grabar no sean nulos
+            
+            $var=$this->firstname;
+            if($var === null) {echo "Error en insert del actor: El nombre del actor esta vacio";  $actorcreated=false;}
+            $var=$this->lastname;
+            if($var === null) {echo "Error en insert del actor: El apellido del actor esta vacio";  $actorcreated=false;}
+            $var=$this->DOB;
+            if($var === null || $var === "00/00/0000") {echo "Error en insert del actor: La fecha de nacimiento del actor esta vacia"; $actorcreated=false;}
+            $var=$this->idcountry;
+            if($var === null) {echo "Error en insert del actor: La nacionalidad del actor esta vacia"; $actorcreated=false;}
 
-            /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
+            if (!$actorcreated)
+            {
+                $mysqli ->close( );
+            }
+            else 
+            {
+           /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
 
             $query= "select * from actors where firstname='".$this->firstname."' and lastname='".$this->lastname."' and DOB='".$this->DOB."' and idcountry=".$this->idcountry;
            // echo " select: ". $query;
@@ -125,18 +141,20 @@ class Actor {
                     echo " Error esta duplicado el actor no se puede insertar";
                 }
             else
-            {
-                $query= "INSERT INTO actors(firstname, lastname, DOB, idcountry) VALUES('$this->firstname','$this->lastname','$this->DOB','$this->idcountry')";
+                {
+                    $query= "INSERT INTO actors(firstname, lastname, DOB, idcountry) VALUES('$this->firstname','$this->lastname','$this->DOB','$this->idcountry')";
+                    
+                    $add_actor = mysqli_query($mysqli,$query);
+                    $mysqli ->close( ) ;
+                    
+                    if($add_actor){
+                        $actorcreated=true;
+                    } else {
+                        $actorcreated=false;
+                        echo " Error en insert del actor: ". mysqli_error($mysqli);
+                    }
                 
-                $add_actor = mysqli_query($mysqli,$query);
-                $mysqli ->close( ) ;
-                
-                if($add_actor){
-                    $actorcreated=true;
-                } else {
-                    echo " Error en insert del actor: ". mysqli_error($mysqli);
                 }
-                
             }
             return  $actorcreated;
         }

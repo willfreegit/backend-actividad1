@@ -1,4 +1,11 @@
 <!-- Header -->
+<!-- para probar hacer un picker con formato dd/mm/yyyy ya que input no deja-->
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
+<script type = "text / javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"> </script> 
+
+
+<!-- fin del cambio -->
+
 <?php  include "header.php" ?>
  
 <?php 
@@ -49,13 +56,13 @@
      
       <div class="form-group">
         <label for="DOB" class="form-label">Fecha de Nacimiento</label>
+<!-- para probar hacer un picker con formato dd/mm/yyyy ya que input no deja-->
+
         <input type="date"   value="" required pattern="\d{2}-\d{2}-\d{4}" 
         min="1925-01-01" max="2022-12-31" name="DOB"  class="form-control" required 
         oninvalid="this.setCustomValidity('Escoja la fecha de nacimiento del actor')"
         oninput="this.setCustomValidity('')"/>
-      </div>    
- 
-      
+          
       <div class="form-group">
         <label for="idcountry" class="form-label">Nacionalidad</label>
 
@@ -117,3 +124,51 @@
  
 <!-- Footer -->
 <?php include "footer.php" ?>
+<script>
+   $(function () {
+   var bindDatePicker = function() {
+		$(".date").datetimepicker({
+        format:'DD-MM-YYYY',
+			icons: {
+				time: "fa fa-clock-o",
+				date: "fa fa-calendar",
+				up: "fa fa-arrow-up",
+				down: "fa fa-arrow-down"
+			}
+		}).find('input:first').on("blur",function () {
+			// check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
+			// update the format if it's yyyy-mm-dd
+			var date = parseDate($(this).val());
+
+			if (! isValidDate(date)) {
+				//create date based on momentjs (we have that)
+				date = moment().format('YYYY-MM-DD');
+			}
+
+			$(this).val(date);
+		});
+	}
+   
+   var isValidDate = function(value, format) {
+		format = format || false;
+		// lets parse the date to the best of our knowledge
+		if (format) {
+			value = parseDate(value);
+		}
+
+		var timestamp = Date.parse(value);
+
+		return isNaN(timestamp) == false;
+   }
+   
+   var parseDate = function(value) {
+		var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+		if (m)
+			value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
+
+		return value;
+   }
+   
+   bindDatePicker();
+ });
+ </script>
