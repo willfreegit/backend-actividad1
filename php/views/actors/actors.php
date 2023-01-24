@@ -36,7 +36,7 @@
              //echo " <td style='visibility:hidden'>{$actor->getidcountry()}</td>";
 
              //echo " <td class='text-center'> <a href='view.php?user_id={$serie->getId()}' class='btn btn-primary'> <i class='bi bi-eye'></i> View</a> </td>";
-             echo " <td class='text-center' > <a href='update.php?edit&serie_id={$actor->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
+             echo " <td class='text-center' > <a href='update.php?id={$actor->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
              echo " <td  class='text-center'>  <a href='delete.php?delete={$actor->getId()}' class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";
              echo " </tr> ";
             }

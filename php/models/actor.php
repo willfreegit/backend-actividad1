@@ -223,22 +223,18 @@ class Actor {
         
            
             $query="SELECT id, firstname,lastname,DATE_FORMAT(DOB,'%d/%m/%Y') as DOB,idcountry,countries.nationality FROM actors, countries 
-            where actors.idcountry = countries.num_code and id=".this->id;               
+            where actors.idcountry = countries.num_code and id=".$this->id;               
         
             $actores= mysqli_query($mysqli,$query);   
             
-            
-            while($row = mysqli_fetch_array($actores)){
-                $iactor = new Actor($row['id'], $row['firstname'], $row['lastname'], $row['DOB'], $row['idcountry'],$row['nationality']);
-         /*Depuracion de valores que se envian a las vistas
-                echo $iactor->getId().'<br>';
-                echo $row['firstname'].'<br>';
-         */       
-                array_push($actorList, $iactor);
+            foreach ($actores as $item)
+            {
+                $itemObject =new Actor($item['id'], $item['firstname'], $item['lastname'], $item['DOB'], $item['idcountry'],$item['nationality']);
+                break;
             }
         
             $mysqli ->close( ) ;
-            return $actorList;
+            return $itemObject;
            }
         
 
