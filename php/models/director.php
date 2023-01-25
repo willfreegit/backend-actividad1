@@ -258,7 +258,7 @@ class Director {
             {
            /*Se realiza una comprobacion para ver si no existen directores asignados a series antes de borrarlos*/
 
-            $query= "select * from series_cast where iddirector=".$this->id;
+            $query= "select * from series where iddirector=".$this->id;
            // echo " select: ". $query;
            
             $directores= mysqli_query($mysqli,$query);   
