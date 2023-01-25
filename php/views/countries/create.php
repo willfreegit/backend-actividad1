@@ -25,10 +25,10 @@
     {
 
         $country_name = $_POST['country_name'];
-        $country_isocode = $_POST['country_isocode'];
-
+        $country_alphacode = $_POST['country_alphacode'];
+        $country_nacionalidad = $_POST['country_nacionalidad'];
         
-        $countryCreated = storecountry($country_name, $country_isocode);
+        $countryCreated = storeCountry($country_name, $country_alphacode,$country_nacionalidad);
   
     }
     if (!$sendData)
@@ -47,12 +47,21 @@
       </div>
  
       <div class="form-group">
-        <label for="country_isocode" class="form-label">ISO Code</label>
-        <input type="text" name="country_isocode"  class="form-control" required placeholder="Ingrese un código ISO eg. 'es'"
-        oninvalid="this.setCustomValidity('Ingrese el código ISO del país')"
+        <label for="country_alphacode" class="form-label">Código Alpha</label>
+        <input type="text" name="country_alphacode"  class="form-control" required placeholder="Ingrese el código Alpha del país eg. 'ESP'"
+        oninvalid="this.setCustomValidity('Ingrese el código Alpha del país')"
         oninput="this.setCustomValidity('')"/>
       </div>
-     
+   
+      <div class="form-group">
+        <label for="country_nacionalidad" class="form-label">Nacionalidad</label>
+        <input type="text" name="country_nacionalidad"  class="form-control" required placeholder="Ingrese la nacionalidad."
+        oninvalid="this.setCustomValidity('Ingrese la nacionalidad.')"
+        oninput="this.setCustomValidity('')"/>
+      </div>
+
+      
+
    
       <div class="form-group">
         <input type="submit"  name="createBtn" class="btn btn-primary mt-2" value="Crear">

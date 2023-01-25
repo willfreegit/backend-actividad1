@@ -28,7 +28,8 @@
              <tr>
                <th  scope="col">ID</th>
                <th  scope="col">País</th>
-               <th  scope="col">Código ISO</th>
+               <th  scope="col">Código Alpha</th>
+               <th  scope="col">Nacionalidad</th>               
                <th  scope="col" colspan="2" class="text-center">Operaciones CRUD</th>
              </tr>  
            </thead>
@@ -39,11 +40,12 @@
 
             foreach($countries as $country){
              echo "<tr >";
-             echo " <th scope='row'>{$country->getId()}</th>";
-             echo " <td >{$country->getCountry_name()}</td>";
-             echo " <td >{$country->getCountry_isocode()}</td>";
-             echo " <td class='text-center' > <a href='update.php?id={$country->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
-             echo " <td  class='text-center'>  <a onclick='return confirmacion()' href='delete.php?id={$country->getId()}' class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";
+             echo " <th scope='row'>{$country->getNum_code()}</th>";
+             echo " <td >{$country->getEn_short_name()}</td>";
+             echo " <td >{$country->getAlpha_3_code()}</td>";
+             echo " <td >{$country->getNationality()}</td>";
+             echo " <td class='text-center' > <a href='update.php?id={$country->getNum_code()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
+             echo " <td  class='text-center'>  <a onclick='return confirmacion()' href='delete.php?id={$country->getNum_code()}' class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";
              echo " </tr> ";
             }
                  ?>

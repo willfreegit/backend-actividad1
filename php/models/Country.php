@@ -6,7 +6,7 @@ class Country
 	private $en_short_name;
 	private $nationality;
 
-	public function __construct($num_code=null,$alpha_3_code=null,$en_short_name=null,$nationality=null)
+	public function __construct($num_code=null,$en_short_name=null,$alpha_3_code=null,$nationality=null)
 	{
         $this->num_code = $num_code;
         $this->alpha_3_code = $alpha_3_code;
@@ -88,7 +88,7 @@ class Country
 	}
 
 
-        function saveLanguage()
+        function saveCountry()
         {
             $countrycreated=true;
     
@@ -96,10 +96,13 @@ class Country
 
             //TO DO revisar que los parametros a grabar no sean nulos
 
-            $var=$this->country_name;
+            $var=$this->en_short_name;
             if($var === null) {echo "Error en insert del país: El nombre del país esta vacio";  $countrycreated=false;}
-            $var=$this->country_isocode;
-            if($var === null) {echo "Error en insert del país: El código del país esta vacio";  $countrycreated=false;}
+            $var=$this->alpha_3_code;
+            if($var === null) {echo "Error en insert del país: El código Alpha del país esta vacio";  $countrycreated=false;}
+            $var=$this->nationality;
+            if($var === null) {echo "Error en insert del país: La nacionalidad esta vacio";  $countrycreated=false;}
+
 
             if (!$countrycreated)
             {
@@ -109,7 +112,7 @@ class Country
             {
            /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
 
-            $query= "select * from countries where country_name='".$this->country_name."' and country_isocode='".$this->country_isocode."'";
+            $query= "select * from countries where en_short_name='".$this->en_short_name."' and alpha_3_code='".$this->alpha_3_code."' and alpha_3_code='".$this->nationality."'";
            // echo " select: ". $query;
            
             $countries= mysqli_query($mysqli,$query);   
@@ -122,7 +125,24 @@ class Country
                 }
             else
                 {
-                    $query= "INSERT INTO countries(country_name, country_isocode) VALUES('$this->country_name','$this->country_isocode')";
+
+
+                    $query= "select * from countries where alpha_3_code='".$this->alpha_3_code."'";
+                   // echo " select: ". $query;
+                    
+                     $countries= mysqli_query($mysqli,$query);   
+                     $rowcount=mysqli_num_rows($countries);
+                    // echo $rowcount;
+                     if ($rowcount>0)
+                         {
+                             $countrycreated=false;
+                             $mysqli ->close( ) ;
+                             echo " Error esta duplicado el alpha code del país y no se puede insertar";
+                         }
+         
+                         else {
+
+                    $query= "INSERT INTO countries(en_short_name, alpha_3_code, nationality) VALUES('$this->en_short_name','$this->alpha_3_code', '$this->nationality')";
                     
                     $add_country = mysqli_query($mysqli,$query);
                     $mysqli ->close( ) ;
@@ -133,13 +153,13 @@ class Country
                         $countrycreated=false;
                         echo " Error en insert del país: ". mysqli_error($mysqli);
                     }
-                
+                }
                 }
             }
             return  $countrycreated;
         }
 
-        function updateLanguage()
+        function updateCountry()
         {
             $countryupdated=true;
     
@@ -149,9 +169,9 @@ class Country
 
             $var=$this->id;
             if($var === null) {echo "Error en insert del país: El id del país esta vacio";  $countryupdated=false;}
-            $var=$this->country_name;
+            $var=$this->en_short_name;
             if($var === null) {echo "Error en insert del país: El nombre del país esta vacio";  $countryupdated=false;}
-            $var=$this->country_isocode;
+            $var=$this->alpha_3_code;
             if($var === null) {echo "Error en insert del país: El código ISO del país esta vacio";  $countryupdated=false;}
 
             if (!$countryupdated)
@@ -162,7 +182,7 @@ class Country
             {
            /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
 
-            $query= "select * from countries where country_name='".$this->country_name."' and country_isocode='".$this->country_isocode."' and id<>".$this->id;
+            $query= "select * from countries where en_short_name='".$this->en_short_name."' and alpha_3_code='".$this->alpha_3_code."' and id<>".$this->id;
            // echo " select: ". $query;
            
             $countries= mysqli_query($mysqli,$query);   
@@ -175,7 +195,7 @@ class Country
                 }
             else
                 {
-                    $query= "UPDATE countries set country_name='".$this->country_name."', country_isocode='".$this->country_isocode."' where id=".$this->id;
+                    $query= "UPDATE countries set en_short_name='".$this->en_short_name."', alpha_3_code='".$this->alpha_3_code."' where id=".$this->id;
                     //echo " select: ". $query;
                     $add_country = mysqli_query($mysqli,$query);
                     $mysqli ->close( ) ;
@@ -197,12 +217,12 @@ class Country
             $mysqli = (new CconexionDB)->initConnectionDb();
         
            
-            $query="SELECT id, country_name,country_isocode FROM countries where id=".$this->id;               
+            $query="SELECT id, en_short_name,alpha_3_code FROM countries where id=".$this->id;               
         
             $countries= mysqli_query($mysqli,$query);   
             
             foreach ($countries as $item)
-            {  $itemObject =new Language($item['id'], $item['country_name'], $item['country_isocode']);
+            {  $itemObject =new Country($item['id'], $item['en_short_name'], $item['alpha_3_code']);
                 break;
             }
         

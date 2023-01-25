@@ -15,7 +15,7 @@ function listcountries()
     return $countryObjectArray;
 }
 
-function storeCountry($country_name, $country_isocode)
+function storeCountry($country_name, $country_alphacode,$country_nacionalidad)
 {
     $countryCreated=true;
     if (empty($country_name))
@@ -24,22 +24,32 @@ function storeCountry($country_name, $country_isocode)
         $countryCreated=false;
     }
     
-    if (empty($country_isocode))
+    if (empty($country_alphacode))
     {
-        echo nl2br("Falta el dato de apellido del país\n");
+        echo nl2br("Falta el dato de Alpha Code del país\n");
         $countryCreated=false;
     }
 
+    if (empty($country_nacionalidad))
+    {   echo $country_nacionalidad;
+        echo nl2br("Falta el dato de la nacionalidad\n");
+        $countryCreated=false;
+    }
+
+    /* Se trunca el valor del parametro a 3 caracteres*/
+    $alphacode=strtoupper(substr($country_alphacode, 0, 3));
+
+
     if ($countryCreated)
     {
-    $newCountry = new Country (null,$country_name, $country_isocode);
+    $newCountry = new Country (null,$country_name, $alphacode,$country_nacionalidad);
     $countryCreated = $newCountry->saveCountry();
     }
     
     return $countryCreated;
 }
 
-function updateCountry($countryId,$country_name, $country_isocode)
+function updateCountry($countryId,$country_name, $country_alphacode)
 {
     $countryEdited=true;
     
@@ -55,15 +65,15 @@ function updateCountry($countryId,$country_name, $country_isocode)
         $countryEdited=false;
     }
     
-    if (empty($country_isocode))
+    if (empty($country_alphacode))
     {
-        echo nl2br("Falta el dato de código ISO del país\n");
+        echo nl2br("Falta el dato de código Alpha del país\n");
         $countryEdited=false;
     }
 
     if ($countryEdited)
     {
-        $countryEditor = new Country ($countryId,$country_name, $country_isocode);
+        $countryEditor = new Country ($countryId,$country_name, $country_alphacode,$country_nacionalidad);
         $countryEdited = $countryEditor->updateCountry();
     }
     
