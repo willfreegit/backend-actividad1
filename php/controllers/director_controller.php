@@ -42,6 +42,13 @@ function storeDirector($firstname, $lastname, $DOB, $idcountry)
         echo nl2br("Falta el dato de fecha de nacimiento del director\n");
         $directorCreated=false;
     }
+    else {
+         $from_format = 'd/m/Y';
+         $to_format = 'Y/m/d';
+         $date_aux = date_create_from_format($from_format, $DOB);
+         $datesave = date_format($date_aux,$to_format);
+        
+    }
 
     if (empty($idcountry))
     {
@@ -51,7 +58,7 @@ function storeDirector($firstname, $lastname, $DOB, $idcountry)
 
     if ($directorCreated)
     {
-    $newDirector = new Director (null,$firstname, $lastname, $DOB, $idcountry );
+    $newDirector = new Director (null,$firstname, $lastname, $datesave, $idcountry );
     $directorCreated = $newDirector->saveDirector();
     }
     
@@ -91,6 +98,13 @@ function updateDirector($directorId,$firstname, $lastname, $DOB, $idcountry)
         echo nl2br("Falta el dato de fecha de nacimiento del director\n");
         $directorEdited=false;
     }
+    else {
+            $from_format = 'd/m/Y';
+            $to_format = 'Y/m/d';
+            $date_aux = date_create_from_format($from_format, $DOB);
+            $datesave = date_format($date_aux,$to_format);
+           
+       }
 
     if (empty($idcountry))
     {
@@ -100,7 +114,7 @@ function updateDirector($directorId,$firstname, $lastname, $DOB, $idcountry)
 
     if ($directorEdited)
     {
-        $directorEditor = new Director ($directorId,$firstname, $lastname, $DOB, $idcountry );
+        $directorEditor = new Director ($directorId,$firstname, $lastname, $datesave, $idcountry );
         $directorEdited = $directorEditor->updateDirector();
     }
     
@@ -124,5 +138,3 @@ function deleteDirector($directorId)
 }
 
 ?>
-
-
