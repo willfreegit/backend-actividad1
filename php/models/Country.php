@@ -112,7 +112,7 @@ class Country
             {
            /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
 
-            $query= "select * from countries where en_short_name='".$this->en_short_name."' and alpha_3_code='".$this->alpha_3_code."' and alpha_3_code='".$this->nationality."'";
+            $query= "select * from countries where en_short_name='".$this->en_short_name."' and alpha_3_code='".$this->alpha_3_code."' and nationality='".$this->nationality."'";
            // echo " select: ". $query;
            
             $countries= mysqli_query($mysqli,$query);   
@@ -142,87 +142,104 @@ class Country
          
                          else {
 
-                    $query= "INSERT INTO countries(en_short_name, alpha_3_code, nationality) VALUES('$this->en_short_name','$this->alpha_3_code', '$this->nationality')";
-                    
-                    $add_country = mysqli_query($mysqli,$query);
-                    $mysqli ->close( ) ;
-                    
-                    if($add_country){
-                        $countrycreated=true;
-                    } else {
-                        $countrycreated=false;
-                        echo " Error en insert del país: ". mysqli_error($mysqli);
-                    }
-                }
+                                $query= "INSERT INTO countries(en_short_name, alpha_3_code, nationality) VALUES('$this->en_short_name','$this->alpha_3_code', '$this->nationality')";
+                                
+                                $add_country = mysqli_query($mysqli,$query);
+                                $mysqli ->close( ) ;
+                                
+                                if($add_country){
+                                    $countrycreated=true;
+                                } else {
+                                    $countrycreated=false;
+                                    echo " Error en insert del país: ". mysqli_error($mysqli);
+                                }
+                            }
                 }
             }
             return  $countrycreated;
         }
 
-        function updateCountry()
-        {
-            $countryupdated=true;
+function updateCountry()
+{
+    $countryupdated=true;
+
+    $mysqli = (new CconexionDB)->initConnectionDb();
+
+    //TO DO revisar que los parametros a grabar no sean nulos
+
+    $var=$this->num_code;
+    if($var === null) {echo "Error en insert del país: El id del país esta vacio";  $countryupdated=false;}
+    $var=$this->en_short_name;
+    if($var === null) {echo "Error en insert del país: El nombre del país esta vacio";  $countryupdated=false;}
+    $var=$this->alpha_3_code;
+    if($var === null) {echo "Error en insert del país: El código ISO del país esta vacio";  $countryupdated=false;}
+    $var=$this->nationality;
+    if($var === null) {echo "Error en insert del país: La nacionalidad esta vacio";  $countrycreated=false;}
+
+    if (!$countryupdated)
+    {
+        $mysqli ->close( );
+    }
+    else 
+    {
+    /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
+
+    $query= "select * from countries where en_short_name='".$this->en_short_name."' and alpha_3_code='".$this->alpha_3_code."' and nationality='".$this->nationality."' and num_code<>".$this->num_code;
+    // echo " select: ". $query;
     
-            $mysqli = (new CconexionDB)->initConnectionDb();
-
-            //TO DO revisar que los parametros a grabar no sean nulos
-
-            $var=$this->id;
-            if($var === null) {echo "Error en insert del país: El id del país esta vacio";  $countryupdated=false;}
-            $var=$this->en_short_name;
-            if($var === null) {echo "Error en insert del país: El nombre del país esta vacio";  $countryupdated=false;}
-            $var=$this->alpha_3_code;
-            if($var === null) {echo "Error en insert del país: El código ISO del país esta vacio";  $countryupdated=false;}
-
-            if (!$countryupdated)
-            {
-                $mysqli ->close( );
-            }
-            else 
-            {
-           /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
-
-            $query= "select * from countries where en_short_name='".$this->en_short_name."' and alpha_3_code='".$this->alpha_3_code."' and id<>".$this->id;
-           // echo " select: ". $query;
-           
-            $countries= mysqli_query($mysqli,$query);   
-            $rowcount=mysqli_num_rows($countries);
-            if ($rowcount>0) 
-                {
-                    $countryupdated=false;
-                    $mysqli ->close( ) ;
-                    echo " Error esta duplicado el país no se puede actualizar";
-                }
-            else
-                {
-                    $query= "UPDATE countries set en_short_name='".$this->en_short_name."', alpha_3_code='".$this->alpha_3_code."' where id=".$this->id;
-                    //echo " select: ". $query;
-                    $add_country = mysqli_query($mysqli,$query);
-                    $mysqli ->close( ) ;
-                    
-                    if($add_country){
-                        $countryupdated=true;
-                    } else {
-                        $countryupdated=false;
-                        echo " Error en actualización del país: ". mysqli_error($mysqli);
-                    }
-                
-                }
-            }
-            return  $countryupdated;
+    $countries= mysqli_query($mysqli,$query);   
+    $rowcount=mysqli_num_rows($countries);
+    if ($rowcount>0) 
+        {
+            $countryupdated=false;
+            $mysqli ->close( ) ;
+            echo " Error esta duplicado el país no se puede actualizar";
         }
+    else
+        {
+
+            $query= "select * from countries where alpha_3_code='".$this->alpha_3_code."'";
+            // echo " select: ". $query;
+            
+                $countries= mysqli_query($mysqli,$query);   
+                $rowcount=mysqli_num_rows($countries);
+            // echo $rowcount;
+                if ($rowcount>0)
+                    {
+                        $countryupdated=false;
+                        $mysqli ->close( ) ;
+                        echo " Error esta duplicado el alpha code del país y no se puede insertar";
+                    }
+    
+                    else {
+                        $query= "UPDATE countries set en_short_name='".$this->en_short_name."', alpha_3_code='".$this->alpha_3_code."' where num_code=".$this->num_code;
+                        //echo " select: ". $query;
+                        $add_country = mysqli_query($mysqli,$query);
+                        $mysqli ->close( ) ;
+                        
+                        if($add_country){
+                            $countryupdated=true;
+                        } else {
+                            $countryupdated=false;
+                            echo " Error en actualización del país: ". mysqli_error($mysqli);
+                            }
+                        }
+        }
+    }
+    return  $countryupdated;
+}
 
 
         function getItem(){
             $mysqli = (new CconexionDB)->initConnectionDb();
         
            
-            $query="SELECT id, en_short_name,alpha_3_code FROM countries where id=".$this->id;               
-        
+            $query="SELECT num_code, en_short_name,alpha_3_code,nationality FROM countries where num_code=".$this->num_code;               
+            //echo $query;
             $countries= mysqli_query($mysqli,$query);   
             
             foreach ($countries as $item)
-            {  $itemObject =new Country($item['id'], $item['en_short_name'], $item['alpha_3_code']);
+            {  $itemObject =new Country($item['num_code'], $item['en_short_name'], $item['alpha_3_code'], $item['nationality']);
                 break;
             }
         
@@ -240,7 +257,7 @@ class Country
 
             //TO DO revisar que los parametros a grabar no sean nulos
 
-            $var=$this->id;
+            $var=$this->num_code;
 
             if($var === null)
             {
@@ -250,9 +267,9 @@ class Country
             }
             else 
             {
-           /*Se realiza una comprobacion para ver si no existen paises asignados a series antes de borrarlos*/
+           /*Se realiza una comprobacion para ver si no existen paises asignados a actores antes de borrarlos*/
 
-            $query= "select * from series_audio_countries where idcountry=".$this->id;
+            $query= "select * from actors where idcountry=".$this->num_code;
             //echo " select: ". $query;
            
             $countries= mysqli_query($mysqli,$query);   
@@ -261,13 +278,13 @@ class Country
                 {
                     $countrydeleted=false;
                     $mysqli ->close( ) ;
-                    echo " Error el país esta asignado como país en una serie";
+                    echo " Error el país esta asignado como nacionalidad en uno o mas actores";
                 }
             else
                 {
 
 
-                    $query= "select * from series_subtitles where idcountry=".$this->id;
+                    $query= "select * from directors where idcountry=".$this->num_code;
                     //echo " select: ". $query;
                     
                      $countries= mysqli_query($mysqli,$query);   
@@ -276,11 +293,11 @@ class Country
                          {
                              $countrydeleted=false;
                              $mysqli ->close( ) ;
-                             echo " Error el país esta asignado como subtitulo en una serie";
+                             echo " Error el país esta asignado como nacionalidad en uno o mas directores";
                          }
          
                     else{
-                        $query= "delete from countries where id=".$this->id;
+                        $query= "delete from countries where num_code=".$this->num_code;
                         //echo " select: ". $query;
                         $add_country = mysqli_query($mysqli,$query);
                         $mysqli ->close( ) ;

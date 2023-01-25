@@ -49,7 +49,7 @@ function storeCountry($country_name, $country_alphacode,$country_nacionalidad)
     return $countryCreated;
 }
 
-function updateCountry($countryId,$country_name, $country_alphacode)
+function updateCountry($countryId,$country_name, $country_alphacode,$country_nacionalidad)
 {
     $countryEdited=true;
     
@@ -71,9 +71,20 @@ function updateCountry($countryId,$country_name, $country_alphacode)
         $countryEdited=false;
     }
 
+    if (empty($country_nacionalidad))
+    {   echo $country_nacionalidad;
+        echo nl2br("Falta el dato de la nacionalidad\n");
+        $countryCreated=false;
+    }
+
+
+    /* Se trunca el valor del parametro a 3 caracteres*/
+    $alphacode=strtoupper(substr($country_alphacode, 0, 3));
+
+
     if ($countryEdited)
     {
-        $countryEditor = new Country ($countryId,$country_name, $country_alphacode,$country_nacionalidad);
+        $countryEditor = new Country ($countryId,$country_name,$alphacode,$country_nacionalidad);
         $countryEdited = $countryEditor->updateCountry();
     }
     

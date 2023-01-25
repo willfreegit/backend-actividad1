@@ -5,7 +5,7 @@
   require_once('../../controllers/country_controller.php');
     
   $countryId = $_GET['id'];
-  $countryObject = getcountryData($countryId);
+  $countryObject = getCountryData($countryId);
   
   $sendData = false;
   $countryEdited= false;
@@ -22,9 +22,9 @@
     {
 
       $country_name = $_POST['country_name'];
-      $country_isocode = $_POST['country_isocode'];
-       
-        $countryEdited = updatecountry($countryId,$country_name, $country_isocode);
+      $country_alphacode = $_POST['country_alphacode'];
+      $country_nacionalidad = $_POST['country_nacionalidad'];
+      $countryEdited = updateCountry($countryId,$country_name, $country_alphacode,$country_nacionalidad);
   
     }
     if (!$sendData)
@@ -34,21 +34,31 @@
  
 <h1 class="text-center">Actualizar país</h1>
   <div class="container">
-    <form name="edit_country" action="" method="POST">
+  <form name="create_country" action="" method="post">
       <div class="form-group">
         <label for="country_name" class="form-label">País</label>
-        <input id="country_name" type="text" name="country_name"  class="form-control" required placeholder="Ingrese un nombre"
+        <input type="text" name="country_name"  class="form-control" required placeholder="Ingrese un nombre"
         oninvalid="this.setCustomValidity('Ingrese el nombre del país')"
-        oninput="this.setCustomValidity('')" value="<?php if(isset($countryObject)){echo $countryObject->getCountry_name();}?>"
-        />
+        oninput="this.setCustomValidity('')"
+        value="<?php if(isset($countryObject)){echo $countryObject->getEn_short_name();} ?>" />
       </div>
  
       <div class="form-group">
-        <label for="country_isocode" class="form-label">Código ISO</label>
-        <input id="country_isocode" type="text" name="country_isocode"  class="form-control" required placeholder="Ingrese un código ISO eg. 'es'"
-        oninvalid="this.setCustomValidity('Ingrese el código ISO del país')"
-        oninput="this.setCustomValidity('')" value="<?php if(isset($countryObject)){echo $countryObject->getCountry_isocode();}?>" />
+        <label for="country_alphacode" class="form-label">Código Alpha</label>
+        <input type="text" name="country_alphacode"  class="form-control" required placeholder="Ingrese el código Alpha del país eg. 'ESP'"
+        oninvalid="this.setCustomValidity('Ingrese el código Alpha del país')"
+        oninput="this.setCustomValidity('')"
+        value="<?php if(isset($countryObject)){echo $countryObject->getAlpha_3_code();} ?>" />
       </div>
+   
+      <div class="form-group">
+        <label for="country_nacionalidad" class="form-label">Nacionalidad</label>
+        <input type="text" name="country_nacionalidad"  class="form-control" required placeholder="Ingrese la nacionalidad."
+        oninvalid="this.setCustomValidity('Ingrese la nacionalidad.')"
+        oninput="this.setCustomValidity('')"
+        value="<?php if(isset($countryObject)){echo $countryObject->getNationality();} ?>" />        
+      </div>
+
 
       <div class="form-group">
         <input id="id" type="hidden" name="id"  class="form-control" 
