@@ -145,7 +145,7 @@
       <div class=row>
         <div class="alert alert-danger" role="alert">
           El director no se ha actualizado correctamente.<br> 
-            <a href="update.php"> Volver a intentarlo</a> 
+            <a href="directors.php"> Volver a intentarlo</a> 
         </div>
       </div>
 
