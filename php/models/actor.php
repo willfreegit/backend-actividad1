@@ -82,7 +82,7 @@ class Actor {
 
 
         function getAll(){
-            $mysqli = (new CconexionDB)->initConnectionDb();
+            $mysqli = OpenConn();
         
             $actorList = [];
             $query="SELECT id, firstname,lastname,DATE_FORMAT(DOB,'%d/%m/%Y') as DOB,idcountry,countries.nationality FROM actors, countries
@@ -100,7 +100,7 @@ class Actor {
                 array_push($actorList, $iactor);
             }
         
-            $mysqli ->close( ) ;
+            CloseConn($mysqli);
 
             return $actorList;
            }

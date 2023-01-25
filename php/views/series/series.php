@@ -14,6 +14,7 @@
               <th  scope="col">Episodios</th>
               <th  scope="col">Plataforma</th>
               <th  scope="col">Director</th>
+              <th  scope="col">Actores</th>
               <th  scope="col" colspan="2" class="text-center">Operaciones CRUD</th>
             </tr>  
           </thead>
@@ -24,6 +25,7 @@
            require_once('../../controllers/serie_controller.php');
            $series = getSeries();
            foreach($series as $serie){
+            $actores = getActoresSerie_plane($serie->getId());
             echo "<tr >";
             echo " <th scope='row'>{$serie->getId()}</th>";
             echo " <td >{$serie->getTitle()}</td>";
@@ -31,6 +33,7 @@
             echo " <td >{$serie->getEpisodes()}</td>";
             echo " <td >{$serie->getIdplatform()}</td>";
             echo " <td >{$serie->getIddirector()}</td>";
+            echo " <td >{$actores}</td>";
             //echo " <td class='text-center'> <a href='view.php?user_id={$serie->getId()}' class='btn btn-primary'> <i class='bi bi-eye'></i> View</a> </td>";
             echo " <td class='text-center' > <a href='update.php?edit&serie_id={$serie->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
             echo " <td  class='text-center'>  <a href='delete.php?delete={$serie->getId()}' class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";

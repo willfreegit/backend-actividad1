@@ -6,6 +6,31 @@ require_once('../../models/Serie.php');
     return $list_series;
    }
 
+   function cleanActors($actors, $actors_serie){
+       $list = [];
+       if(!empty($actors) && !empty($actors_serie)){
+        foreach($actors as $actor){
+            $existe = false;
+            foreach($actors_serie as $serie){
+               if($actor->getId() == $serie->getId()){
+                   $existe = true;
+               }
+            }
+            if(!$existe){
+               array_push($list, $actor);
+            }
+          }
+       } else{
+           $list = $actors;
+       }
+       return $list;
+   }
+
+   function listActorsSerie($idserie){
+     $list_actorsSerie = getActoresSerie_model($idserie);
+     return $list_actorsSerie;
+   }
+
    function saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors){
     
     if (empty($title)) {
@@ -35,8 +60,18 @@ require_once('../../models/Serie.php');
     }
    }
 
-   function updateSerie($id, $title, $seasons, $episodes){
+   function updateSerie($id, $title, $seasons, $episodes, $add_actors, $delete_actors){
     updateSerie_model($id, $title, $seasons, $episodes);
+    if(!empty($add_actors)){
+        foreach ($add_actors as $selected) {
+            saveSeriesCast_model($selected, $id, 'actor');
+        }
+    }
+    if(!empty($delete_actors)){
+        foreach ($delete_actors as $selected) {
+            deleteSeriesCast_model($selected, $id);
+        }
+    }
    }
 
    function getSerieById($id){

@@ -100,6 +100,31 @@
         return $list_series;
     }
 
+    function getActoresSerie_model($idserie){
+        $conn = OpenConn();    
+        $list_actores = [];
+        $query="SELECT * FROM actors where id in (select idactor from series_cast where idserie = $idserie)";               
+        $series= mysqli_query($conn,$query);    
+        while($row= mysqli_fetch_assoc($series)){
+            $item = new Actor($row['id'], $row['firstname'], $row['lastname'], $row['DOB'], $row['idcountry'],$row['nationality']);
+            array_push($list_actores, $item);
+        } 
+        CloseConn($conn);
+        return $list_actores;
+    }
+
+    function getActoresSerie_plane($idserie){
+        $conn = OpenConn();    
+        $actores = '';
+        $query="SELECT * FROM actors where id in (select idactor from series_cast where idserie = $idserie)";               
+        $series= mysqli_query($conn,$query);    
+        while($row= mysqli_fetch_assoc($series)){
+            $actores = $actores.$row['firstname'].' '.$row['lastname'].', ';
+        } 
+        CloseConn($conn);
+        return $actores;
+    }
+
     function saveSerie_model($title, $seasons, $episodes, $idplatform, $iddirector){
         $id = -1;
         $conn = OpenConn();
@@ -121,6 +146,16 @@
         CloseConn($conn);
         if (!$add_serie) {
             echo "A ocurrido un error al crear seriescast ";
+        } 
+       }
+
+       function deleteSeriesCast_model($idactor, $idserie){
+        $conn = OpenConn();
+        $query= "DELETE FROM series_cast WHERE idserie = $idserie and idactor = $idactor ";
+        $add_serie = mysqli_query($conn,$query);
+        CloseConn($conn);
+        if (!$add_serie) {
+            echo "A ocurrido un error al borrar seriescast ";
         } 
        }
 

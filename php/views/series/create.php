@@ -62,7 +62,7 @@
       <select name="actors[]" multiple class="form-control">
         <?php
         foreach($actors as $row) { ?>
-					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getFirstName(); ?></option>
+					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getFirstName().' '.$row->getLastName(); ?></option>
 				<?php } ?>
       </select>
 
