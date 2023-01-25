@@ -42,6 +42,13 @@ function storeActor($firstname, $lastname, $DOB, $idcountry)
         echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
         $actorCreated=false;
     }
+    else {
+         $from_format = 'd/m/Y';
+         $to_format = 'Y/m/d';
+         $date_aux = date_create_from_format($from_format, $DOB);
+         $datesave = date_format($date_aux,$to_format);
+        
+    }
 
     if (empty($idcountry))
     {
@@ -51,7 +58,7 @@ function storeActor($firstname, $lastname, $DOB, $idcountry)
 
     if ($actorCreated)
     {
-    $newActor = new Actor (null,$firstname, $lastname, $DOB, $idcountry );
+    $newActor = new Actor (null,$firstname, $lastname, $datesave, $idcountry );
     $actorCreated = $newActor->saveActor();
     }
     
@@ -91,6 +98,13 @@ function updateActor($actorId,$firstname, $lastname, $DOB, $idcountry)
         echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
         $actorEdited=false;
     }
+    else {
+            $from_format = 'd/m/Y';
+            $to_format = 'Y/m/d';
+            $date_aux = date_create_from_format($from_format, $DOB);
+            $datesave = date_format($date_aux,$to_format);
+           
+       }
 
     if (empty($idcountry))
     {
@@ -100,7 +114,7 @@ function updateActor($actorId,$firstname, $lastname, $DOB, $idcountry)
 
     if ($actorEdited)
     {
-        $actorEditor = new Actor ($actorId,$firstname, $lastname, $DOB, $idcountry );
+        $actorEditor = new Actor ($actorId,$firstname, $lastname, $datesave, $idcountry );
         $actorEdited = $actorEditor->updateActor();
     }
     

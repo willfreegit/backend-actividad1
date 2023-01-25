@@ -86,7 +86,7 @@ class Actor {
         
             $actorList = [];
             $query="SELECT id, firstname,lastname,DATE_FORMAT(DOB,'%d/%m/%Y') as DOB,idcountry,countries.nationality FROM actors, countries
-            where actors.idcountry= countries.num_code";               
+            where actors.idcountry= countries.num_code order by id";               
         
             $actores= mysqli_query($mysqli,$query);   
             

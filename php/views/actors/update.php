@@ -52,23 +52,20 @@
         oninvalid="this.setCustomValidity('Ingrese el apellido del Actor')"
         oninput="this.setCustomValidity('')" value="<?php if(isset($actorObject)){echo $actorObject->getLastname();}?>" />
       </div>
-     
+
       <div class="form-group">
         <label for="DOB" class="form-label">Fecha de Nacimiento</label>
 
-        <!-- para probar hacer un picker con formato dd/mm/yyyy ya que input no deja-->
-        <?php if(isset($actorObject)){
-          $fecha=$actorObject->getDOB();
-          $dt = new DateTime($fecha);
-          $fechastr=$dt->format('Y-m-d');
-//          echo $fechastr;
-          }?>
-        <input type="date"   
-        min="1925-01-01" max="2022-12-31" id="DOB" name="DOB"  class="form-control" required 
+        <div class="input-group date" id="datepicker">
+                        <input type="text" name="DOB" value="<?php if(isset($actorObject)){echo $actorObject->getDOB();}?>" class="form-control"  required 
         oninvalid="this.setCustomValidity('Escoja la fecha de nacimiento del actor')"
-        oninput="this.setCustomValidity('')" value="<?php if(isset($actorObject)){
-          echo $fechastr;}?>"
-        />
+        oninput="this.setCustomValidity('')" >
+        <span class="input-group-append">
+              <span class="input-group-text bg-white">
+                  <i class="fa fa-calendar"></i>
+              </span>
+          </span>
+        </div>
 
       
          
@@ -157,6 +154,14 @@
     }
     ?>   
 
+<script type="text/javascript">
+        $(function() {
+            $('#datepicker').datepicker(
+				{format: 'dd/mm/yyyy' ,
+        clearBtn: true,
+        language: "es"});
+        });
+  </script>
 
 <!-- Footer -->
 <?php include "footer.php" ?>
