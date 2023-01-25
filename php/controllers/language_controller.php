@@ -27,7 +27,7 @@ function storeLanguage($language_name, $language_isocode)
     
     if (empty($language_isocode))
     {
-        echo nl2br("Falta el dato de apellido del idioma\n");
+        echo nl2br("Falta el dato del código ISO del idioma\n");
         $languageCreated=false;
     }
 
