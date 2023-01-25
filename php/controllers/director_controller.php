@@ -1,5 +1,5 @@
 <?php
-require_once('../../models/Director.php');
+require_once('../../models/director.php');
 require_once('../../db/connection_db.php');
 
 function listdirectors()

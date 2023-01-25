@@ -45,10 +45,15 @@ require_once('../../models/Serie.php');
         echo '<p class="error alert alert-danger mt-3">Campo plataforma obligatorio</p>';
         return;
     }
+    if (empty($iddirector)) {
+        echo '<p class="error alert alert-danger mt-3">Debe seleccionar un director</p>';
+        return;
+    }
     if (empty($actors)) {
         echo '<p class="error alert alert-danger mt-3">Debe seleccionar por lo menos un actor</p>';
         return;
     }
+   
     $id = saveSerie_model($title, $seasons, $episodes, $idplatform, $iddirector);
     if ($id > 0) {
         foreach ($actors as $selected) {
