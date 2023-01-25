@@ -3,6 +3,15 @@
         private $id;
         private $name;
 
+
+        public function __construct($platformId=null,$nameplatform=null)
+        {
+            $this->id = $platformId;
+            $this->name = $nameplatform;
+
+        }
+
+
         /**
          * @return id
          */
@@ -63,7 +72,7 @@
 
             $var=$this->name;
             if($var === null) {echo "Error en insert de la plataforma: El nombre de la plataforma esta vacio";  $platformcreated=false;}
-            $var=$this->lastname;
+            
 
             if (!$platformcreated)
             {
@@ -137,7 +146,7 @@
                 }
             else
                 {
-                    $query= "UPDATE platforms set name='".$this->name."', lastname='".$this->lastname."', DOB='".$this->DOB."', idcountry=".$this->idcountry." where id=".$this->id;
+                    $query= "UPDATE platforms set name='".$this->name."' where id=".$this->id;
                     //echo " select: ". $query;
                     $add_platform = mysqli_query($mysqli,$query);
                     $mysqli ->close( ) ;
@@ -164,7 +173,7 @@
             $plataformas= mysqli_query($mysqli,$query);   
             
             foreach ($plataformas as $item)
-            {  $itemObject =new Platform($item['id'], $item['name'], $item['lastname'], $item['DOB'], $item['idcountry'],$item['nationality']);
+            {  $itemObject =new Platform($item['id'], $item['name']);
                 break;
             }
         

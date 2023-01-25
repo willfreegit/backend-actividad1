@@ -74,7 +74,7 @@
       <div class=row>
         <div class="alert alert-danger" role="alert">
           La plataforma no se ha actualizado correctamente.<br> 
-            <a href="update.php"> Volver a intentarlo</a> 
+            <a href="platforms.php"> Volver a intentarlo</a> 
         </div>
       </div>
 
@@ -83,14 +83,7 @@
     }
     ?>   
 
-<script type="text/javascript">
-        $(function() {
-            $('#datepicker').datepicker(
-				{format: 'dd/mm/yyyy' ,
-        clearBtn: true,
-        language: "es"});
-        });
-  </script>
+
 
 <!-- Footer -->
 <?php include "footer.php" ?>

@@ -26,7 +26,7 @@ function storePlatform($name)
     }
 
     if ($platformCreated)
-    {
+    {   $name=strtoupper($name);
 		$newPlatform = new Platform (null,$name);
 		$platformCreated = $newPlatform->savePlatform();
     }

@@ -10,8 +10,7 @@
  
 <?php 
   require_once('../../controllers/platform_controller.php');
-  require_once('../../controllers/country_controller.php');
-  
+    
   $sendData = false;
   $platformCreated= false;
   
