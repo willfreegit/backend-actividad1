@@ -142,7 +142,7 @@ class Language
             {
            /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
 
-            $query= "select * from languages where language_name='".$this->language_name."' and language_isocode='".$this->language_isocode." and id<>".$this->id;
+            $query= "select * from languages where language_name='".$this->language_name."' and language_isocode='".$this->language_isocode."' and id<>".$this->id;
            // echo " select: ". $query;
            
             $languages= mysqli_query($mysqli,$query);   
@@ -213,7 +213,7 @@ class Language
            /*Se realiza una comprobacion para ver si no existen idiomas asignados a series antes de borrarlos*/
 
             $query= "select * from series_audio_languages where idlanguage=".$this->id;
-           // echo " select: ". $query;
+            //echo " select: ". $query;
            
             $languages= mysqli_query($mysqli,$query);   
             $rowcount=mysqli_num_rows($languages);
@@ -228,7 +228,7 @@ class Language
 
 
                     $query= "select * from series_subtitles where idlanguage=".$this->id;
-                    // echo " select: ". $query;
+                    //echo " select: ". $query;
                     
                      $languages= mysqli_query($mysqli,$query);   
                      $rowcount=mysqli_num_rows($languages);

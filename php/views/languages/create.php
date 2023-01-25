@@ -61,7 +61,7 @@
   </div>
  
   <div class="container text-center mt-5">
-    <a href="language.php" class="btn btn-warning mt-5"> Regresar </a>
+    <a href="languages.php" class="btn btn-warning mt-5"> Regresar </a>
   <div>
 <?php
     } else { 
@@ -71,7 +71,7 @@
       <div class=row>
         <div class="alert alert-success" role="alert">
           Idioma creado correctamente.<br> 
-            <a href="language.php"> Volver al listado de idiomas</a> 
+            <a href="languages.php"> Volver al listado de idiomas</a> 
         </div>
       </div>
       <?php
