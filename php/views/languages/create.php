@@ -37,20 +37,20 @@
       
 ?>
  
-<h1 class="text-center">Agregar nuevo director</h1>
+<h1 class="text-center">Agregar nuevo language</h1>
   <div class="container">
     <form name="create_director" action="" method="post">
       <div class="form-group">
         <label for="firstname" class="form-label">Nombre</label>
         <input type="text" name="firstname"  class="form-control"       required placeholder="Ingrese un nombre"
-        oninvalid="this.setCustomValidity('Ingrese el nombre del Director')"
+        oninvalid="this.setCustomValidity('Ingrese el nombre del Language')"
         oninput="this.setCustomValidity('')"/>
       </div>
  
       <div class="form-group">
         <label for="lastname" class="form-label">Apellido</label>
         <input type="text" name="lastname"  class="form-control" required placeholder="Ingrese un apellido"
-        oninvalid="this.setCustomValidity('Ingrese el apellido del Director')"
+        oninvalid="this.setCustomValidity('Ingrese el apellido del Language')"
         oninput="this.setCustomValidity('')"/>
       </div>
      
@@ -113,8 +113,8 @@
   ?>
       <div class=row>
         <div class="alert alert-success" role="alert">
-          Director creado correctamente.<br> 
-            <a href="directors.php"> Volver at listado de directores</a> 
+          Language creado correctamente.<br> 
+            <a href="directors.php"> Volver at listado de languages</a> 
         </div>
       </div>
       <?php
@@ -123,7 +123,7 @@
       ?>
       <div class=row>
         <div class="alert alert-danger" role="alert">
-          El director no se ha creado correctamente.<br> 
+          El language no se ha creado correctamente.<br> 
             <a href="create.php"> Volver a intentarlo</a> 
             </div>
       </div>

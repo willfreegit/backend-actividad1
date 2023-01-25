@@ -17,11 +17,11 @@
  require_once('../../controllers/director_controller.php');
  ?>
   <div class="container">
-    <h1 class="text-center" >Listado de Directores</h1>
-      <a href="create.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Crear nuevo Director</a>
+    <h1 class="text-center" >Listado de Languages</h1>
+      <a href="create.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Crear nuevo Language</a>
       <?php
-           $directores = listDirectors();
-           if(count($directores)> 0) {
+           $languages = listDirectors();
+           if(count($languages)> 0) {
       ?>
            <table class="table table-striped table-bordered table-hover">
            <thead class="table-dark">
@@ -39,18 +39,18 @@
    
            <?php
 
-            foreach($directores as $director){
+            foreach($languages as $language){
              echo "<tr >";
-             echo " <th scope='row'>{$director->getId()}</th>";
-             echo " <td >{$director->getfirstname()}</td>";
-             echo " <td >{$director->getlastname()}</td>";
-             echo " <td >{$director->getDOB()}</td>";
-             echo " <td >{$director->getnationality()}</td>";
-             //echo " <td style='visibility:hidden'>{$director->getidcountry()}</td>";
+             echo " <th scope='row'>{$language->getId()}</th>";
+             echo " <td >{$language->getfirstname()}</td>";
+             echo " <td >{$language->getlastname()}</td>";
+             echo " <td >{$language->getDOB()}</td>";
+             echo " <td >{$language->getnationality()}</td>";
+             //echo " <td style='visibility:hidden'>{$language->getidcountry()}</td>";
 
              //echo " <td class='text-center'> <a href='view.php?user_id={$serie->getId()}' class='btn btn-primary'> <i class='bi bi-eye'></i> View</a> </td>";
-             echo " <td class='text-center' > <a href='update.php?id={$director->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
-             echo " <td  class='text-center'>  <a onclick='return confirmacion()' href='delete.php?id={$director->getId()}' class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";
+             echo " <td class='text-center' > <a href='update.php?id={$language->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
+             echo " <td  class='text-center'>  <a onclick='return confirmacion()' href='delete.php?id={$language->getId()}' class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";
              echo " </tr> ";
             }
                  ?>
@@ -62,7 +62,7 @@
     ?>
 
     <div class="alert alert-warning" role="alert">
-      Aún no existen directores.
+      Aún no existen languages.
     </div> 
 
     <?php

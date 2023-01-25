@@ -13,8 +13,8 @@
 ?>
      <div class=row>
         <div class="alert alert-success" role="alert">
-          Director borrado correctamente.<br> 
-            <a href="directors.php"> Volver at listado de directores</a> 
+          Language borrado correctamente.<br> 
+            <a href="directors.php"> Volver at listado de languages</a> 
         </div>
       </div>
       <?php
@@ -23,7 +23,7 @@
       ?>
       <div class=row>
         <div class="alert alert-danger" role="alert">
-          El director no se ha borrado correctamente.<br> 
+          El language no se ha borrado correctamente.<br> 
             <a href="directors.php"> Volver a intentarlo</a> 
         </div>
       </div>
