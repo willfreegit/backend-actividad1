@@ -135,7 +135,7 @@
       <div class=row>
         <div class="alert alert-success" role="alert">
           Actor actualizado correctamente.<br> 
-            <a href="actors.php"> Volver at listado de actores</a> 
+            <a href="actors.php"> Volver al listado de actores</a> 
         </div>
       </div>
       <?php

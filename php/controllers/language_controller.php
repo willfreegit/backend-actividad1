@@ -2,141 +2,89 @@
 require_once('../../models/Language.php');
 require_once('../../db/connection_db.php');
 
-function listactors()
+function listlanguages()
 {
-    $actors= new Language();
-    $actorList= $actors->getall();
-    $actorObjectArray =[];
+    $languages= new Language();
+    $languageList= $languages->getall();
+    $languageObjectArray =[];
 
-    foreach ($actorList as $actoritem) {
-        $actorObject=new Language($actoritem->getId(),$actoritem->getFirstname(),$actoritem->getLastname(),$actoritem->getDOB(),$actoritem->getIdcountry(),$actoritem->getnationality());
-        array_push($actorObjectArray, $actorObject);
+    foreach ($languageList as $languageitem) {
+        $languageObject=new Language($languageitem->getId(),$languageitem->getLanguage_name(),$languageitem->getLanguage_isocode());
+        array_push($languageObjectArray, $languageObject);
     }
-    return $actorObjectArray;
+    return $languageObjectArray;
 }
 
 
-function storeLanguage($firstname, $lastname, $DOB, $idcountry)
+function storeLanguage($language_name, $language_isocode)
 {
-    $actorCreated=true;
-    if (empty($firstname))
+    $languageCreated=true;
+    if (empty($language_name))
     {
-        echo nl2br("Falta el dato de nombre del language\n");
-        $actorCreated=false;
+        echo nl2br("Falta el dato de nombre del idioma\n");
+        $languageCreated=false;
     }
     
-    if (empty($lastname))
+    if (empty($language_isocode))
     {
-        echo nl2br("Falta el dato de apellido del language\n");
-        $actorCreated=false;
+        echo nl2br("Falta el dato de apellido del idioma\n");
+        $languageCreated=false;
     }
 
-    if (empty($DOB))
+    if ($languageCreated)
     {
-        echo nl2br("Falta el dato de fecha de nacimiento del language\n");
-        $actorCreated=false;
-    }
-
-    if ($DOB=="00/00/0000")
-    {
-        echo nl2br("Falta el dato de fecha de nacimiento del language\n");
-        $actorCreated=false;
-    }
-    else {
-         $from_format = 'd/m/Y';
-         $to_format = 'Y/m/d';
-         $date_aux = date_create_from_format($from_format, $DOB);
-         $datesave = date_format($date_aux,$to_format);
-        
-    }
-
-    if (empty($idcountry))
-    {
-        echo nl2br("Falta la nacionalidad del language\n");
-        $actorCreated=false;
-    }
-
-    if ($actorCreated)
-    {
-    $newLanguage = new Language (null,$firstname, $lastname, $datesave, $idcountry );
-    $actorCreated = $newLanguage->saveLanguage();
+    $newLanguage = new Language (null,$language_name, $language_isocode);
+    $languageCreated = $newLanguage->saveLanguage();
     }
     
-    return $actorCreated;
+    return $languageCreated;
 }
 
-function updateLanguage($actorId,$firstname, $lastname, $DOB, $idcountry)
+function updateLanguage($languageId,$language_name, $language_isocode)
 {
-    $actorEdited=true;
+    $languageEdited=true;
     
-    if (empty($actorId))
+    if (empty($languageId))
     {
-        echo nl2br("Falta el id del language\n");
-        $actorEdited=false;
+        echo nl2br("Falta el id del idioma\n");
+        $languageEdited=false;
     }
 
-    if (empty($firstname))
+    if (empty($language_name))
     {
-        echo nl2br("Falta el dato de nombre del language\n");
-        $actorEdited=false;
-    }
-    
-    if (empty($lastname))
-    {
-        echo nl2br("Falta el dato de apellido del language\n");
-        $actorEdited=false;
-    }
-
-    if (empty($DOB))
-    {
-        echo nl2br("Falta el dato de fecha de nacimiento del language\n");
-        $actorEdited=false;
-    }
-
-    if ($DOB=="00/00/0000")
-    {
-        echo nl2br("Falta el dato de fecha de nacimiento del language\n");
-        $actorEdited=false;
-    }
-    else {
-            $from_format = 'd/m/Y';
-            $to_format = 'Y/m/d';
-            $date_aux = date_create_from_format($from_format, $DOB);
-            $datesave = date_format($date_aux,$to_format);
-           
-       }
-
-    if (empty($idcountry))
-    {
-        echo nl2br("Falta la nacionalidad del language\n");
-        $actorEdited=false;
-    }
-
-    if ($actorEdited)
-    {
-        $actorEditor = new Language ($actorId,$firstname, $lastname, $datesave, $idcountry );
-        $actorEdited = $actorEditor->updateLanguage();
+        echo nl2br("Falta el dato de nombre del idioma\n");
+        $languageEdited=false;
     }
     
-    return $actorEdited;
+    if (empty($language_isocode))
+    {
+        echo nl2br("Falta el dato de código ISO del idioma\n");
+        $languageEdited=false;
+    }
+
+    if ($languageEdited)
+    {
+        $languageEditor = new Language ($languageId,$language_name, $language_isocode);
+        $languageEdited = $languageEditor->updateLanguage();
+    }
+    
+    return $languageEdited;
 }
 
-function getLanguageData($actorId)
+function getLanguageData($languageId)
 {
-    $language = new Language($actorId);
-    $actorObject = $language->getItem();
+    $language = new Language($languageId);
+    $languageObject = $language->getItem();
 
-    return $actorObject;
+    return $languageObject;
 }
 
-function deleteLanguage($actorId)
+function deleteLanguage($languageId)
 {
-    $language = new Language($actorId);
-    $actorDeleted = $language->delete();
+    $language = new Language($languageId);
+    $languageDeleted = $language->delete();
 
-    return $actorDeleted;
+    return $languageDeleted;
 }
 
 ?>
-
-

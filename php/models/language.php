@@ -2,19 +2,17 @@
 class Language
 {
 	private $id;
-	private $language_isocode;
 	private $language_name;
+    private $language_isocode;
 
-        public function __construct($languageId=null,$firstnameLanguage=null,$lastnameLanguage=null,$DOBLanguage=null,$idcountryLanguage=null,$nationality=null)
-        {
-            $this->id = $languageId;
-            $this->firstname = $firstnameLanguage;
-            $this->lastname = $lastnameLanguage;
-            $this->DOB = $DOBLanguage;
-            $this->idcountry = $idcountryLanguage;
-            $this->nationality = $nationality;
 
-        }
+    public function __construct($languageId=null,$language_name=null,$language_isocode=null)
+    {
+        $this->id = $languageId;
+        $this->language_name = $language_name;
+        $this->language_isocode = $language_isocode;
+
+    }
 
 	public function setId($id)
 	{
@@ -24,16 +22,6 @@ class Language
 	public function getId()
 	{
 		return $this->id;
-	}
-
-	public function setLanguage_isocode($language_isocode)
-	{
-		$this->language_isocode = $language_isocode;
-	}
-
-	public function getLanguage_isocode()
-	{
-		return $this->language_isocode;
 	}
 
 	public function setLanguage_name($language_name)
@@ -46,23 +34,31 @@ class Language
 		return $this->language_name;
 	}
 
+	public function setLanguage_isocode($language_isocode)
+	{
+		$this->language_isocode = $language_isocode;
+	}
+
+	public function getLanguage_isocode()
+	{
+		return $this->language_isocode;
+	}
 
 
         function getAll(){
             $mysqli = (new CconexionDB)->initConnectionDb();
         
             $languageList = [];
-            $query="SELECT id, firstname,lastname,DATE_FORMAT(DOB,'%d/%m/%Y') as DOB,idcountry,countries.nationality FROM languages, countries
-            where languages.idcountry= countries.num_code order by id";               
+            $query="SELECT id, language_name,language_isocode FROM languages order by id";               
         
             $languages= mysqli_query($mysqli,$query);   
             
             
             while($row = mysqli_fetch_array($languages)){
-                $ilanguage = new Language($row['id'], $row['firstname'], $row['lastname'], $row['DOB'], $row['idcountry'],$row['nationality']);
+                $ilanguage = new Language($row['id'], $row['language_name'], $row['language_isocode']);
          /*Depuracion de valores que se envian a las vistas
                 echo $ilanguage->getId().'<br>';
-                echo $row['firstname'].'<br>';
+                echo $row['language_name'].'<br>';
          */       
                 array_push($languageList, $ilanguage);
             }
@@ -80,14 +76,10 @@ class Language
 
             //TO DO revisar que los parametros a grabar no sean nulos
 
-            $var=$this->firstname;
-            if($var === null) {echo "Error en insert del language: El nombre del language esta vacio";  $languagecreated=false;}
-            $var=$this->lastname;
-            if($var === null) {echo "Error en insert del language: El apellido del language esta vacio";  $languagecreated=false;}
-            $var=$this->DOB;
-            if($var === null || $var === "00/00/0000") {echo "Error en insert del language: La fecha de nacimiento del language esta vacia"; $languagecreated=false;}
-            $var=$this->idcountry;
-            if($var === null) {echo "Error en insert del language: La nacionalidad del language esta vacia"; $languagecreated=false;}
+            $var=$this->language_name;
+            if($var === null) {echo "Error en insert del idioma: El nombre del idioma esta vacio";  $languagecreated=false;}
+            $var=$this->language_isocode;
+            if($var === null) {echo "Error en insert del idioma: El código del idioma esta vacio";  $languagecreated=false;}
 
             if (!$languagecreated)
             {
@@ -97,7 +89,7 @@ class Language
             {
            /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
 
-            $query= "select * from languages where firstname='".$this->firstname."' and lastname='".$this->lastname."' and DOB='".$this->DOB."' and idcountry=".$this->idcountry;
+            $query= "select * from languages where language_name='".$this->language_name."' and language_isocode='".$this->language_isocode."'";
            // echo " select: ". $query;
            
             $languages= mysqli_query($mysqli,$query);   
@@ -106,11 +98,11 @@ class Language
                 {
                     $languagecreated=false;
                     $mysqli ->close( ) ;
-                    echo " Error esta duplicado el language no se puede insertar";
+                    echo " Error esta duplicado el idioma no se puede insertar";
                 }
             else
                 {
-                    $query= "INSERT INTO languages(firstname, lastname, DOB, idcountry) VALUES('$this->firstname','$this->lastname','$this->DOB','$this->idcountry')";
+                    $query= "INSERT INTO languages(language_name, language_isocode) VALUES('$this->language_name','$this->language_isocode')";
                     
                     $add_language = mysqli_query($mysqli,$query);
                     $mysqli ->close( ) ;
@@ -119,7 +111,7 @@ class Language
                         $languagecreated=true;
                     } else {
                         $languagecreated=false;
-                        echo " Error en insert del language: ". mysqli_error($mysqli);
+                        echo " Error en insert del idioma: ". mysqli_error($mysqli);
                     }
                 
                 }
@@ -136,15 +128,11 @@ class Language
             //TO DO revisar que los parametros a grabar no sean nulos
 
             $var=$this->id;
-            if($var === null) {echo "Error en insert del language: El id del language esta vacio";  $languageupdated=false;}
-            $var=$this->firstname;
-            if($var === null) {echo "Error en insert del language: El nombre del language esta vacio";  $languageupdated=false;}
-            $var=$this->lastname;
-            if($var === null) {echo "Error en insert del language: El apellido del language esta vacio";  $languageupdated=false;}
-            $var=$this->DOB;
-            if($var === null || $var === "00/00/0000") {echo "Error en insert del language: La fecha de nacimiento del language esta vacia"; $languageupdated=false;}
-            $var=$this->idcountry;
-            if($var === null) {echo "Error en insert del language: La nacionalidad del language esta vacia"; $languageupdated=false;}
+            if($var === null) {echo "Error en insert del idioma: El id del idioma esta vacio";  $languageupdated=false;}
+            $var=$this->language_name;
+            if($var === null) {echo "Error en insert del idioma: El nombre del idioma esta vacio";  $languageupdated=false;}
+            $var=$this->language_isocode;
+            if($var === null) {echo "Error en insert del idioma: El código ISO del idioma esta vacio";  $languageupdated=false;}
 
             if (!$languageupdated)
             {
@@ -154,7 +142,7 @@ class Language
             {
            /*Se realiza una comprobacion para ver si no existen datos iguales antes de grabarlos*/
 
-            $query= "select * from languages where firstname='".$this->firstname."' and lastname='".$this->lastname."' and DOB='".$this->DOB."' and idcountry=".$this->idcountry." and id<>".$this->id;
+            $query= "select * from languages where language_name='".$this->language_name."' and language_isocode='".$this->language_isocode." and id<>".$this->id;
            // echo " select: ". $query;
            
             $languages= mysqli_query($mysqli,$query);   
@@ -163,11 +151,11 @@ class Language
                 {
                     $languageupdated=false;
                     $mysqli ->close( ) ;
-                    echo " Error esta duplicado el language no se puede actualizar";
+                    echo " Error esta duplicado el idioma no se puede actualizar";
                 }
             else
                 {
-                    $query= "UPDATE languages set firstname='".$this->firstname."', lastname='".$this->lastname."', DOB='".$this->DOB."', idcountry=".$this->idcountry." where id=".$this->id;
+                    $query= "UPDATE languages set language_name='".$this->language_name."', language_isocode='".$this->language_isocode."' where id=".$this->id;
                     //echo " select: ". $query;
                     $add_language = mysqli_query($mysqli,$query);
                     $mysqli ->close( ) ;
@@ -176,7 +164,7 @@ class Language
                         $languageupdated=true;
                     } else {
                         $languageupdated=false;
-                        echo " Error en actualización del language: ". mysqli_error($mysqli);
+                        echo " Error en actualización del idioma: ". mysqli_error($mysqli);
                     }
                 
                 }
@@ -189,13 +177,12 @@ class Language
             $mysqli = (new CconexionDB)->initConnectionDb();
         
            
-            $query="SELECT id, firstname,lastname,DATE_FORMAT(DOB,'%d/%m/%Y') as DOB,idcountry,countries.nationality FROM languages, countries 
-            where languages.idcountry = countries.num_code and id=".$this->id;               
+            $query="SELECT id, language_name,language_isocode FROM languages where id=".$this->id;               
         
             $languages= mysqli_query($mysqli,$query);   
             
             foreach ($languages as $item)
-            {  $itemObject =new Language($item['id'], $item['firstname'], $item['lastname'], $item['DOB'], $item['idcountry'],$item['nationality']);
+            {  $itemObject =new Language($item['id'], $item['language_name'], $item['language_isocode']);
                 break;
             }
         
@@ -217,15 +204,15 @@ class Language
 
             if($var === null)
             {
-                echo "Error en insert del language: El id del language esta vacio";  
+                echo "Error en insert del idioma: El id del idioma esta vacio";  
                 $languagedeleted=false;
                 $mysqli ->close( );
             }
             else 
             {
-           /*Se realiza una comprobacion para ver si no existen languages asignados a series antes de borrarlos*/
+           /*Se realiza una comprobacion para ver si no existen idiomas asignados a series antes de borrarlos*/
 
-            $query= "select * from series_cast where idlanguage=".$this->id;
+            $query= "select * from series_audio_languages where idlanguage=".$this->id;
            // echo " select: ". $query;
            
             $languages= mysqli_query($mysqli,$query);   
@@ -234,22 +221,37 @@ class Language
                 {
                     $languagedeleted=false;
                     $mysqli ->close( ) ;
-                    echo " Error el language esta asignado a una serie";
+                    echo " Error el idioma esta asignado como idioma en una serie";
                 }
             else
                 {
-                    $query= "delete from languages where id=".$this->id;
-                    //echo " select: ". $query;
-                    $add_language = mysqli_query($mysqli,$query);
-                    $mysqli ->close( ) ;
+
+
+                    $query= "select * from series_subtitles where idlanguage=".$this->id;
+                    // echo " select: ". $query;
                     
-                    if($add_language){
-                        $languagedeleted=true;
-                    } else {
-                        $languagedeleted=false;
-                        echo " Error en el borrado del language: ". mysqli_error($mysqli);
+                     $languages= mysqli_query($mysqli,$query);   
+                     $rowcount=mysqli_num_rows($languages);
+                     if ($rowcount>0) 
+                         {
+                             $languagedeleted=false;
+                             $mysqli ->close( ) ;
+                             echo " Error el idioma esta asignado como subtitulo en una serie";
+                         }
+         
+                    else{
+                        $query= "delete from languages where id=".$this->id;
+                        //echo " select: ". $query;
+                        $add_language = mysqli_query($mysqli,$query);
+                        $mysqli ->close( ) ;
+                        
+                        if($add_language){
+                            $languagedeleted=true;
+                        } else {
+                            $languagedeleted=false;
+                            echo " Error en el borrado del idioma: ". mysqli_error($mysqli);
+                        }
                     }
-                
                 }
             }
             return  $languagedeleted;

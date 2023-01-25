@@ -135,7 +135,7 @@
       <div class=row>
         <div class="alert alert-success" role="alert">
           Director actualizado correctamente.<br> 
-            <a href="directors.php"> Volver at listado de directores</a> 
+            <a href="directors.php"> Volver al listado de directores</a> 
         </div>
       </div>
       <?php
