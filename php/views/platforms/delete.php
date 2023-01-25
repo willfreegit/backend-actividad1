@@ -2,19 +2,19 @@
 <?php  include "header.php" ?>
  
 <?php 
-  require_once('../../controllers/actor_controller.php');
+  require_once('../../controllers/platform_controller.php');
   require_once('../../controllers/country_controller.php');
   
-  $actorId = $_GET['id'];
-  $actordeleted = deleteActor($actorId);
+  $platformId = $_GET['id'];
+  $platformdeleted = deletePlatform($platformId);
   
-  if($actordeleted)
+  if($platformdeleted)
       {
 ?>
      <div class=row>
         <div class="alert alert-success" role="alert">
-          Actor borrado correctamente.<br> 
-            <a href="actors.php"> Volver al listado de actores</a> 
+          Plataforma borrada correctamente.<br> 
+            <a href="platforms.php"> Volver al listado de plataformas</a> 
         </div>
       </div>
       <?php
@@ -23,8 +23,8 @@
       ?>
       <div class=row>
         <div class="alert alert-danger" role="alert">
-          El actor no se ha borrado correctamente.<br> 
-            <a href="actors.php"> Volver a intentarlo</a> 
+          La plataforma no se ha borrado correctamente.<br> 
+            <a href="platforms.php"> Volver a intentarlo</a> 
         </div>
       </div>
 

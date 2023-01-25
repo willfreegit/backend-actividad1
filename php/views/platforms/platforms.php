@@ -14,23 +14,20 @@
 </script>
 
  <?php
- require_once('../../controllers/actor_controller.php');
+ require_once('../../controllers/platform_controller.php');
  ?>
   <div class="container">
-    <h1 class="text-center" >Listado de Actores</h1>
-      <a href="create.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Crear nuevo Actor</a>
+    <h1 class="text-center" >Listado de Plataformas</h1>
+      <a href="create.php" class='btn btn-outline-dark mb-2'> <i class="bi bi-person-plus"></i> Crear nueva Plataforma</a>
       <?php
-           $actores = listActors();
-           if(count($actores)> 0) {
+           $plataformas = listPlatforms();
+           if(count($plataformas)> 0) {
       ?>
            <table class="table table-striped table-bordered table-hover">
            <thead class="table-dark">
              <tr>
                <th  scope="col">ID</th>
                <th  scope="col">Nombre</th>
-               <th  scope="col">Apellido</th>
-               <th  scope="col">Fecha de Nacimiento</th>
-               <th  scope="col">Nacionalidad</th>
                <th  scope="col" colspan="2" class="text-center">Operaciones CRUD</th>
              </tr>  
            </thead>
@@ -39,18 +36,12 @@
    
            <?php
 
-            foreach($actores as $actor){
+            foreach($plataformas as $platform){
              echo "<tr >";
-             echo " <th scope='row'>{$actor->getId()}</th>";
-             echo " <td >{$actor->getfirstname()}</td>";
-             echo " <td >{$actor->getlastname()}</td>";
-             echo " <td >{$actor->getDOB()}</td>";
-             echo " <td >{$actor->getnationality()}</td>";
-             //echo " <td style='visibility:hidden'>{$actor->getidcountry()}</td>";
-
-             //echo " <td class='text-center'> <a href='view.php?user_id={$serie->getId()}' class='btn btn-primary'> <i class='bi bi-eye'></i> View</a> </td>";
-             echo " <td class='text-center' > <a href='update.php?id={$actor->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
-             echo " <td  class='text-center'>  <a onclick='return confirmacion()' href='delete.php?id={$actor->getId()}' class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";
+             echo " <th scope='row'>{$platform->getId()}</th>";
+             echo " <td >{$platform->getname()}</td>";
+             echo " <td class='text-center' > <a href='update.php?id={$platform->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
+             echo " <td  class='text-center'>  <a onclick='return confirmacion()' href='delete.php?id={$platform->getId()}' class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";
              echo " </tr> ";
             }
                  ?>
@@ -62,7 +53,7 @@
     ?>
 
     <div class="alert alert-warning" role="alert">
-      Aún no existen actores.
+      Aún no existen plataformas.
     </div> 
 
     <?php

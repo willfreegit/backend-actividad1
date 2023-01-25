@@ -81,7 +81,7 @@
       <div class=row>
         <div class="alert alert-danger" role="alert">
           El idioma no se ha creado correctamente.<br> 
-            <a href="create.php"> Volver a intentarlo</a> 
+            <a href="languages.php"> Volver a intentarlo</a> 
             </div>
       </div>
 

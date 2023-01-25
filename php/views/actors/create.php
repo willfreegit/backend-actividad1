@@ -124,7 +124,7 @@
       <div class=row>
         <div class="alert alert-danger" role="alert">
           El actor no se ha creado correctamente.<br> 
-            <a href="create.php"> Volver a intentarlo</a> 
+            <a href="actors.php"> Volver a intentarlo</a> 
         </div>
       </div>
 

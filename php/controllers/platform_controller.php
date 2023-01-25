@@ -1,140 +1,78 @@
 <?php
-require_once('../../models/Actor.php');
+require_once('../../models/Platform.php');
 require_once('../../db/connection_db.php');
 
-function listactors()
+function listplatforms()
 {
-    $actors= new Actor();
-    $actorList= $actors->getall();
-    $actorObjectArray =[];
+    $platforms= new Platform();
+    $platformList= $platforms->getall();
+    $platformObjectArray =[];
 
-    foreach ($actorList as $actoritem) {
-        $actorObject=new Actor($actoritem->getId(),$actoritem->getFirstname(),$actoritem->getLastname(),$actoritem->getDOB(),$actoritem->getIdcountry(),$actoritem->getnationality());
-        array_push($actorObjectArray, $actorObject);
+    foreach ($platformList as $platformitem) {
+        $platformObject=new Platform($platformitem->getId(),$platformitem->getName());
+        array_push($platformObjectArray, $platformObject);
     }
-    return $actorObjectArray;
+    return $platformObjectArray;
 }
 
 
-function storeActor($firstname, $lastname, $DOB, $idcountry)
+function storePlatform($name)
 {
-    $actorCreated=true;
-    if (empty($firstname))
+    $platformCreated=true;
+    if (empty($name))
     {
-        echo nl2br("Falta el dato de nombre del actor\n");
-        $actorCreated=false;
+        echo nl2br("Falta el dato de nombre de la plataforma\n");
+        $platformCreated=false;
+    }
+
+    if ($platformCreated)
+    {
+		$newPlatform = new Platform (null,$name);
+		$platformCreated = $newPlatform->savePlatform();
     }
     
-    if (empty($lastname))
-    {
-        echo nl2br("Falta el dato de apellido del actor\n");
-        $actorCreated=false;
-    }
-
-    if (empty($DOB))
-    {
-        echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
-        $actorCreated=false;
-    }
-
-    if ($DOB=="00/00/0000")
-    {
-        echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
-        $actorCreated=false;
-    }
-    else {
-         $from_format = 'd/m/Y';
-         $to_format = 'Y/m/d';
-         $date_aux = date_create_from_format($from_format, $DOB);
-         $datesave = date_format($date_aux,$to_format);
-        
-    }
-
-    if (empty($idcountry))
-    {
-        echo nl2br("Falta la nacionalidad del actor\n");
-        $actorCreated=false;
-    }
-
-    if ($actorCreated)
-    {
-    $newActor = new Actor (null,$firstname, $lastname, $datesave, $idcountry );
-    $actorCreated = $newActor->saveActor();
-    }
-    
-    return $actorCreated;
+    return $platformCreated;
 }
 
-function updateActor($actorId,$firstname, $lastname, $DOB, $idcountry)
+function updatePlatform($platformId,$name)
 {
-    $actorEdited=true;
+    $platformEdited=true;
     
-    if (empty($actorId))
+    if (empty($platformId))
     {
-        echo nl2br("Falta el id del actor\n");
-        $actorEdited=false;
+        echo nl2br("Falta el id de la plataforma\n");
+        $platformEdited=false;
     }
 
-    if (empty($firstname))
+    if (empty($name))
     {
-        echo nl2br("Falta el dato de nombre del actor\n");
-        $actorEdited=false;
-    }
-    
-    if (empty($lastname))
-    {
-        echo nl2br("Falta el dato de apellido del actor\n");
-        $actorEdited=false;
+        echo nl2br("Falta el dato de nombre de la plataforma\n");
+        $platformEdited=false;
     }
 
-    if (empty($DOB))
+    if ($platformEdited)
     {
-        echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
-        $actorEdited=false;
-    }
-
-    if ($DOB=="00/00/0000")
-    {
-        echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
-        $actorEdited=false;
-    }
-    else {
-            $from_format = 'd/m/Y';
-            $to_format = 'Y/m/d';
-            $date_aux = date_create_from_format($from_format, $DOB);
-            $datesave = date_format($date_aux,$to_format);
-           
-       }
-
-    if (empty($idcountry))
-    {
-        echo nl2br("Falta la nacionalidad del actor\n");
-        $actorEdited=false;
-    }
-
-    if ($actorEdited)
-    {
-        $actorEditor = new Actor ($actorId,$firstname, $lastname, $datesave, $idcountry );
-        $actorEdited = $actorEditor->updateActor();
+        $platformEditor = new Platform ($platformId,$name);
+        $platformEdited = $platformEditor->updatePlatform();
     }
     
-    return $actorEdited;
+    return $platformEdited;
 }
 
-function getActorData($actorId)
+function getPlatformData($platformId)
 {
-    $actor = new Actor($actorId);
-    $actorObject = $actor->getItem();
+    $platform = new Platform($platformId);
+    $platformObject = $platform->getItem();
 
-    return $actorObject;
+    return $platformObject;
 }
 
-function deleteActor($actorId)
+function deletePlatform($platformId)
 {
-    $actor = new Actor($actorId);
-    $actorDeleted = $actor->delete();
+    $platform = new Platform($platformId);
+    $platformDeleted = $platform->delete();
 
-    return $actorDeleted;
+    return $platformDeleted;
 }
 
 ?>

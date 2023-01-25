@@ -124,7 +124,7 @@
       <div class=row>
         <div class="alert alert-danger" role="alert">
           El director no se ha creado correctamente.<br> 
-            <a href="create.php"> Volver a intentarlo</a> 
+            <a href="directors.php"> Volver a intentarlo</a> 
             </div>
       </div>
 

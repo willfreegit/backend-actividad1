@@ -90,7 +90,7 @@
       <div class=row>
         <div class="alert alert-danger" role="alert">
           El país no se ha creado correctamente.<br> 
-            <a href="create.php"> Volver a intentarlo</a> 
+            <a href="countries.php"> Volver a intentarlo</a> 
             </div>
       </div>
 
