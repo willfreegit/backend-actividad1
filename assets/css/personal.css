@@ -1,0 +1,17 @@
+.container {
+  background: rgba(0,0,0,0.5);
+  height: 8rem;
+  display: flex;
+  /* align-items por defecto tiene el valor `stretch` */
+  align-items: start;
+}
+.center-h {
+  justify-content: center;
+}
+.center-v {
+  align-items: center;
+}
+.child {
+  background: #60e0b0;
+  padding: .4rem;
+}
