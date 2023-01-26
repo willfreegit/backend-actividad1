@@ -221,7 +221,7 @@ class Director {
         function getItem(){
             $mysqli = (new CconexionDB)->initConnectionDb();
         
-           
+            $itemObject = '';
             $query="SELECT id, firstname,lastname,DATE_FORMAT(DOB,'%d/%m/%Y') as DOB,idcountry,countries.nationality FROM directors, countries 
             where directors.idcountry = countries.num_code and id=".$this->id;               
         

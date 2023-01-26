@@ -1,4 +1,5 @@
 <?php
+
 function OpenConn(){
   $host = 'localhost';
   $user = 'root';   
@@ -15,7 +16,7 @@ function CloseConn($conn){
   $conn -> close();
 }
 
-class CconexionDB{
+ class CconexionDB{
  
   function initConnectionDb(){
     $dbhost = 'localhost';
@@ -31,5 +32,4 @@ class CconexionDB{
   }
 
  }
-
 ?>

@@ -5,23 +5,26 @@
   require_once('../../controllers/serie_controller.php');
   require_once('../../controllers/actor_controller.php');
   require_once('../../controllers/director_controller.php');
+  require_once('../../controllers/platform_controller.php');
 
   $actors = listactors();
   $directors = listdirectors();
+  $platforms = listplatforms();
 
   if(isset($_POST['create'])) 
     {      
       $title = $_POST['title'];
       $seasons = $_POST['seasons'];
       $episodes = $_POST['episodes'];
-      $idplatform = $_POST['idplatform'];
+      $idplatform = $_POST['platform'];
       $iddirector = $_POST['director'];
-      $actors = $_POST['actors'];
-      $add = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors);   
+      $idactors = $_POST['actors'];
+      $add = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $idactors);   
       if($add){
         echo "<script type='text/javascript'>alert('Serie creada correctamente!')</script>";
         $actors = listactors();
         $directors = listdirectors();
+        $platforms = listplatforms();
       } else {
         echo "A ocurrido un error al crear la serie ";
       }
@@ -45,10 +48,14 @@
         <label for="episodes" class="form-label">Episodios</label>
         <input type="text" name="episodes"  class="form-control">
       </div>    
-      <div class="form-group">
-        <label for="idplatform" class="form-label">Plataforma</label>
-        <input type="text" name="idplatform"  class="form-control">
-      </div>
+      <h4>Plataforma</h4>
+      <select name="platform" class="form-control">
+      <option value=""disabled selected>Choose option</option>
+        <?php
+        foreach($platforms as $row) { ?>
+					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getName(); ?></option>
+				<?php } ?>
+      </select>
       <h4>Director</h4>
       <select name="director" class="form-control">
       <option value=""disabled selected>Choose option</option>

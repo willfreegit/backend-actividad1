@@ -23,16 +23,32 @@
   
           <?php
            require_once('../../controllers/serie_controller.php');
+           require_once('../../controllers/director_controller.php');
+           require_once('../../controllers/platform_controller.php');
            $series = getSeries();
            foreach($series as $serie){
+            $directorName = '';
+            $platformName = '';
             $actores = getActoresSerie_plane($serie->getId());
+            if($serie->getIddirector()){
+              $director = getDirectorData($serie->getIddirector());
+              if($director && $director->getFirstName() && $director->getLastName()){
+                $directorName = $director->getFirstName().' '.$director->getLastName();
+              }
+            }
+            if($serie->getIdplatform()){
+              $platform = getPlatformData($serie->getIdplatform());
+              if($platform){
+                $platformName = $platform->getName();
+              }
+            }
             echo "<tr >";
             echo " <th scope='row'>{$serie->getId()}</th>";
             echo " <td >{$serie->getTitle()}</td>";
             echo " <td >{$serie->getSeasons()}</td>";
             echo " <td >{$serie->getEpisodes()}</td>";
-            echo " <td >{$serie->getIdplatform()}</td>";
-            echo " <td >{$serie->getIddirector()}</td>";
+            echo " <td >{$platformName}</td>";
+            echo " <td >{$directorName}</td>";
             echo " <td >{$actores}</td>";
             //echo " <td class='text-center'> <a href='view.php?user_id={$serie->getId()}' class='btn btn-primary'> <i class='bi bi-eye'></i> View</a> </td>";
             echo " <td class='text-center' > <a href='update.php?edit&serie_id={$serie->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";

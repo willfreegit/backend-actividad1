@@ -42,6 +42,13 @@ function storeActor($firstname, $lastname, $DOB, $idcountry)
         echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
         $actorCreated=false;
     }
+    else {
+         $from_format = 'd/m/Y';
+         $to_format = 'Y/m/d';
+         $date_aux = date_create_from_format($from_format, $DOB);
+         $datesave = date_format($date_aux,$to_format);
+        
+    }
 
     if (empty($idcountry))
     {
@@ -51,11 +58,85 @@ function storeActor($firstname, $lastname, $DOB, $idcountry)
 
     if ($actorCreated)
     {
-    $newActor = new Actor (null,$firstname, $lastname, $DOB, $idcountry );
+    $newActor = new Actor (null,$firstname, $lastname, $datesave, $idcountry );
     $actorCreated = $newActor->saveActor();
     }
     
     return $actorCreated;
 }
 
+function updateActor($actorId,$firstname, $lastname, $DOB, $idcountry)
+{
+    $actorEdited=true;
+    
+    if (empty($actorId))
+    {
+        echo nl2br("Falta el id del actor\n");
+        $actorEdited=false;
+    }
+
+    if (empty($firstname))
+    {
+        echo nl2br("Falta el dato de nombre del actor\n");
+        $actorEdited=false;
+    }
+    
+    if (empty($lastname))
+    {
+        echo nl2br("Falta el dato de apellido del actor\n");
+        $actorEdited=false;
+    }
+
+    if (empty($DOB))
+    {
+        echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
+        $actorEdited=false;
+    }
+
+    if ($DOB=="00/00/0000")
+    {
+        echo nl2br("Falta el dato de fecha de nacimiento del actor\n");
+        $actorEdited=false;
+    }
+    else {
+            $from_format = 'd/m/Y';
+            $to_format = 'Y/m/d';
+            $date_aux = date_create_from_format($from_format, $DOB);
+            $datesave = date_format($date_aux,$to_format);
+           
+       }
+
+    if (empty($idcountry))
+    {
+        echo nl2br("Falta la nacionalidad del actor\n");
+        $actorEdited=false;
+    }
+
+    if ($actorEdited)
+    {
+        $actorEditor = new Actor ($actorId,$firstname, $lastname, $datesave, $idcountry );
+        $actorEdited = $actorEditor->updateActor();
+    }
+    
+    return $actorEdited;
+}
+
+function getActorData($actorId)
+{
+    $actor = new Actor($actorId);
+    $actorObject = $actor->getItem();
+
+    return $actorObject;
+}
+
+function deleteActor($actorId)
+{
+    $actor = new Actor($actorId);
+    $actorDeleted = $actor->delete();
+
+    return $actorDeleted;
+}
+
 ?>
+
+
