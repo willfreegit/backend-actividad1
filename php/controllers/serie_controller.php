@@ -37,8 +37,12 @@ require_once('../../models/Serie.php');
         echo '<p class="error alert alert-danger mt-3">Campo título obligatorio</p>';
         return;
     }
-    if (empty($title)) {
+    if (empty($seasons)) {
         echo '<p class="error alert alert-danger mt-3">Campo temporadas obligatorio</p>';
+        return;
+    }
+    if (empty($episodes)) {
+        echo '<p class="error alert alert-danger mt-3">Campo episodios obligatorio</p>';
         return;
     }
     if (empty($idplatform)) {
@@ -53,7 +57,14 @@ require_once('../../models/Serie.php');
         echo '<p class="error alert alert-danger mt-3">Debe seleccionar por lo menos un actor</p>';
         return;
     }
-   
+    if (!is_numeric($seasons)) {
+        echo '<p class="error alert alert-danger mt-3">El campo seasons debe ser numérico</p>';
+        return;
+    }
+    if (!is_numeric($episodes)) {
+        echo '<p class="error alert alert-danger mt-3">El campo episodios debe ser numérico</p>';
+        return;
+    }
     $id = saveSerie_model($title, $seasons, $episodes, $idplatform, $iddirector);
     if ($id > 0) {
         foreach ($actors as $selected) {
@@ -66,6 +77,26 @@ require_once('../../models/Serie.php');
    }
 
    function updateSerie($id, $title, $seasons, $episodes, $add_actors, $delete_actors){
+    if (empty($title)) {
+        echo '<p class="error alert alert-danger mt-3">Campo título obligatorio</p>';
+        return;
+    }
+    if (empty($seasons)) {
+        echo '<p class="error alert alert-danger mt-3">Campo temporadas obligatorio</p>';
+        return;
+    }
+    if (empty($episodes)) {
+        echo '<p class="error alert alert-danger mt-3">Campo episodios obligatorio</p>';
+        return;
+    }
+    if (!is_numeric($seasons)) {
+        echo '<p class="error alert alert-danger mt-3">El campo seasons debe ser numérico</p>';
+        return;
+    }
+    if (!is_numeric($episodes)) {
+        echo '<p class="error alert alert-danger mt-3">El campo episodios debe ser numérico</p>';
+        return;
+    }   
     updateSerie_model($id, $title, $seasons, $episodes);
     if(!empty($add_actors)){
         foreach ($add_actors as $selected) {
