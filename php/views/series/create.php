@@ -73,7 +73,7 @@
       </select>
 
       <div class="form-group">
-        <input type="submit"  name="create" class="btn btn-primary mt-2" value="submit">
+        <input type="submit"  name="create" class="btn btn-primary mt-2" value="Crear">
       </div>
     </form> 
   </div>

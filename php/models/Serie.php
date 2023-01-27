@@ -106,7 +106,7 @@
         $query="SELECT * FROM actors where id in (select idactor from series_cast where idserie = $idserie)";               
         $series= mysqli_query($conn,$query);    
         while($row= mysqli_fetch_assoc($series)){
-            $item = new Actor($row['id'], $row['firstname'], $row['lastname'], $row['DOB'], $row['idcountry'],$row['nationality']);
+            $item = new Actor($row['id'], $row['firstname'], $row['lastname'], $row['DOB']);
             array_push($list_actores, $item);
         } 
         CloseConn($conn);

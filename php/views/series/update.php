@@ -2,6 +2,7 @@
 <?php  include "header.php" ?>
  
 <?php
+   error_reporting (E_ALL ^ E_NOTICE);
    require_once('../../controllers/serie_controller.php');
    require_once('../../controllers/actor_controller.php');
    if(isset($_GET['serie_id']))
@@ -21,8 +22,14 @@
       $title = $_POST['title'];
       $seasons = $_POST['seasons'];
       $episodes = $_POST['episodes'];
-      $add_actors = $_POST['add_actors'];
-      $delete_actors = $_POST['delete_actors'];
+      $add_actors = [];
+      $delete_actors = [];
+      if($_POST['add_actors']){
+        $add_actors = $_POST['add_actors'];
+      }
+      if($_POST['delete_actors']){
+        $delete_actors = $_POST['delete_actors'];
+      }
       $update = updateSerie($serie_id, $title, $seasons, $episodes, $add_actors, $delete_actors);
       echo "<script type='text/javascript'>alert('Serie actualizada correctamente!')</script>";
       $actors = listactors();
