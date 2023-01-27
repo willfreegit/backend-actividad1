@@ -135,6 +135,10 @@ require_once('../../models/Serie.php');
    }
        
    function deleteSerie($id){
+    //Borrado en cascada
+    deleteSeriesCast($id);
+    deleteSeriesLanguage($id);
+    deleteSeriesSubtitles($id);
     deleteSerie_model($id);
    }
     ?>

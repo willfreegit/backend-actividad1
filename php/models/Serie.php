@@ -261,4 +261,36 @@
         $delete_query= mysqli_query($conn, $query);
         CloseConn($conn);
        }
+
+       function deleteSeriesCast($id){
+        $conn = OpenConn();
+        $query= "DELETE FROM series_cast WHERE idserie = $id";
+        $add_serie = mysqli_query($conn,$query);
+        CloseConn($conn);
+        if (!$add_serie) {
+            echo "A ocurrido un error al borrar seriescast ";
+        } 
+       }
+
+       function deleteSeriesLanguage($id){
+        $conn = OpenConn();
+        $query= "DELETE FROM series_audio_languages WHERE idserie = $id";
+        $add_serie = mysqli_query($conn,$query);
+        CloseConn($conn);
+        if (!$add_serie) {
+            echo "A ocurrido un error al borrar seriescast ";
+        } 
+       }
+       
+       function deleteSeriesSubtitles($id){
+        $conn = OpenConn();
+        $query= "DELETE FROM series_subtitles WHERE idserie = $id";
+        $add_serie = mysqli_query($conn,$query);
+        CloseConn($conn);
+        if (!$add_serie) {
+            echo "A ocurrido un error al borrar seriescast ";
+        } 
+       }
+
+
 ?>
