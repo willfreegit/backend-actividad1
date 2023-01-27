@@ -126,7 +126,20 @@
         return $list_languages;
     }
 
+    function getsubtitlesSerie_model($idserie){
+        $conn = OpenConn();    
+        $list_languages = [];
+        $query="SELECT * FROM languages where id in (select idlanguage from series_subtitles where idserie = $idserie)";               
+        $series= mysqli_query($conn,$query);    
+        while($row= mysqli_fetch_assoc($series)){
+            $item = new Language($row['id'], $row['language_name'], $row['language_isocode']);
+            array_push($list_languages, $item);
+        } 
+        CloseConn($conn);
+        return $list_languages;
+    }
 
+    
 
     function getActoresSerie_plane($idserie){
         $conn = OpenConn();    
@@ -250,6 +263,8 @@
             echo "A ocurrido un error al borrar seriescast ";
         } 
        }
+
+
 
        function updateSerie_model($id, $title, $seasons, $episodes, $idplatform, $iddirector){
         $conn = OpenConn();

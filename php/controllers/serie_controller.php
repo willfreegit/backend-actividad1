@@ -36,6 +36,11 @@ require_once('../../models/Serie.php');
     return $list_languagesSerie;
   }
 
+  function listsubtitlesSerie($idserie){
+    $list_subtitlesSerie = getsubtitlesSerie_model($idserie);
+    return $list_subtitlesSerie;
+  }
+
 
    function saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors, $languages, $subtitles){
     
@@ -94,20 +99,13 @@ require_once('../../models/Serie.php');
     if ($id > 0) {
         foreach ($subtitles as $selected) {
             saveSeriesSubtitle_model($selected, $id);
-            echo $selected;
         }
     } 
 
     return true;
    }
 
-   function updateSerie($id, $title, $seasons, $episodes, $idplatform, $iddirector){
-    if (empty($title)) {
-        echo '<p class="error alert alert-danger mt-3">Campo título obligatorio</p>';
-        return;
-    }
-   
-    
+   function updateSerie($id, $title, $seasons, $episodes, $idplatform, $iddirector, $actors, $languages, $subtitles){
     if (empty($id)) {
         echo '<p class="error alert alert-danger mt-3">Campo temporadas obligatorio</p>';
         return;
@@ -124,17 +122,56 @@ require_once('../../models/Serie.php');
         echo '<p class="error alert alert-danger mt-3">El campo episodios debe ser numérico</p>';
         return;
     }   
+   
+    if (empty($idplatform)) {
+        echo '<p class="error alert alert-danger mt-3">Campo plataforma obligatorio</p>';
+        return;
+    }
+    if (empty($iddirector)) {
+        echo '<p class="error alert alert-danger mt-3">Debe seleccionar un director</p>';
+        return;
+    }
+    if (empty($actors)) {
+        echo '<p class="error alert alert-danger mt-3">Debe seleccionar por lo menos un actor</p>';
+        return;
+    }
+    if (empty($languages)) {
+        echo '<p class="error alert alert-danger mt-3">Debe seleccionar por lo menos un lenguaje</p>';
+        return;
+    }
+    
+    if (empty($subtitles)) {
+        echo '<p class="error alert alert-danger mt-3">Debe seleccionar por lo menos un lenguaje como subtitulo</p>';
+        return;
+    }
+
+    if (!is_numeric($seasons)) {
+        echo '<p class="error alert alert-danger mt-3">El campo seasons debe ser numérico</p>';
+        return;
+    }
+    if (!is_numeric($episodes)) {
+        echo '<p class="error alert alert-danger mt-3">El campo episodios debe ser numérico</p>';
+        return;
+    }
+
     updateSerie_model($id, $title, $seasons, $episodes, $idplatform, $iddirector);
-    if(!empty($add_actors)){
-        foreach ($add_actors as $selected) {
-            saveSeriesCast_model($selected, $id, 'actor');
-        }
+
+    deleteSeriesCast($id);
+    deleteSeriesLanguage($id);
+    deleteSeriesSubtitles($id);
+
+    foreach ($actors as $selected) {
+        saveSeriesCast_model($selected, $id, 'actor');
     }
-    if(!empty($delete_actors)){
-        foreach ($delete_actors as $selected) {
-            deleteSeriesCast_model($selected, $id);
-        }
+
+    foreach ($languages as $selected) {
+            saveSeriesLanguaje_model($selected, $id);
     }
+
+    foreach ($subtitles as $selected) {
+        saveSeriesSubtitle_model($selected, $id);
+    }
+    return true;
    }
 
    function getSerieById($id){

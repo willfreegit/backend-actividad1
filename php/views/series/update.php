@@ -2,6 +2,14 @@
 <?php  include "header.php" ?>
  
 <?php 
+global $comboact1;
+global $comboact2;
+global $comboplat;
+global $combodire;
+global $comboact;
+
+
+
   require_once('../../controllers/serie_controller.php');
   require_once('../../controllers/actor_controller.php');
   require_once('../../controllers/director_controller.php');
@@ -31,9 +39,11 @@
       $episodes = $_POST['episodes'];
       $idplatform = $_POST['platform'];
       $iddirector = $_POST['director'];
-      $idactors = $_POST['actors'];
+      $idactors = $_POST['actores'];
+      $idlanguages = $_POST['idiomas'];
+      $idsubtitles = $_POST['subtitulos'];
       
-      $serieEdited = updateSerie($serieId,$title, $seasons, $episodes, $idplatform, $iddirector);   
+      $serieEdited = updateSerie($serieId,$title, $seasons, $episodes, $idplatform, $iddirector, $idactors, $idlanguages,$idsubtitles);   
   
     }
     if (!$sendData)
@@ -75,7 +85,7 @@
 <!-- Combo box Plataforma -->
 
       <h4>Plataforma</h4>
-
+      <div>
         <select name="platform" id="platform"  class="form-control" required placeholder="Escoja una Plataforma"
         oninvalid="this.setCustomValidity('Escoja una Plataforma')"
         oninput="this.setCustomValidity('')"/> >
@@ -119,7 +129,7 @@
 <!--  Combo box Director -->
 
       <h4>Director</h4>
-
+      <div>
         <select name="director" id="director"  class="form-control" required placeholder="Escoja un director"
         oninvalid="this.setCustomValidity('Escoja un director')"
         oninput="this.setCustomValidity('')"/> >
@@ -162,8 +172,8 @@
 <!--  Listbox Actores -->
 
       <h4>Actores</h4>
-      
-      <select name="actors[]" id="actors"  multiple class="form-control" required placeholder="Escoja un actor"
+      <div>      
+      <select name="actores[]"  multiple class="form-control" required placeholder="Escoja un actor"
         oninvalid="this.setCustomValidity('Escoja un actor')"
         oninput="this.setCustomValidity('')"/> >
 
@@ -210,26 +220,111 @@
          ?>     
         </select>
 </div>      
+
+
 <h4>Idiomas</h4>
-      <select name="languages[]" multiple class="form-control">
-        <?php
-        foreach($languages as $row) { ?>
-					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getLanguage_name(); ?></option>
-				<?php } ?>
-      </select>
-      <h4>Subtítulos</h4>
-      <select name="subtitles[]" multiple class="form-control">
-        <?php
-        foreach($subtitles as $row) { ?>
-					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getLanguage_name(); ?></option>
-				<?php } ?>
-      </select>
+<div>
+<select name="idiomas[]"  multiple class="form-control" required placeholder="Escoja un idioma"
+  oninvalid="this.setCustomValidity('Escoja un idioma')"
+  oninput="this.setCustomValidity('')" >
+
+  <?php
+  //validamos cual de los ids es el que tiene que estar seleccionado en el combo box
+  $validarcombo=false;
+  if(isset($serieObject)){
+    $validarcombo=true;
+    $language_serie = listlanguagesSerie($serieId);
+  }
+  //fin de validacion
+
+  $languages = listlanguages();		
+
+    if(count($languages)> 0) 
+    { 
+      foreach($languages as $language)
+      {
+        $idlanguage=$language->getId();
+        $deslanguage=$language->getLanguage_name();  
+        
+        if (!$validarcombo)
+          {//si no viene de actualizar se carga normal
+            $comboact1 .=" <option value=\"{$idlanguage}\">{$deslanguage}</option>"; 
+          }
+  else {
+  
+  
+    foreach($language_serie as $languagesel) { 
+      $idlanguagesel=$languagesel->getId();
+  
+      if($idlanguage==$idlanguagesel){//si viene de actualizar y es el valor anterior se selecciona
+        $comboact1 .=" <option value=\"{$idlanguage}\" selected>{$deslanguage}</option>"; 
+        }
+      else{//si viene de actualizar y no es el valor anterior se carga normal
+        $comboact1 .=" <option value=\"{$idlanguage}\">{$deslanguage}</option>"; 
+        }
+        }
+            }
+  }
+      }
+      echo $comboact1;
+    
+    ?>     
+  </select>
+</div>      
 
       
+<h4>Subtítulos</h4>
+<div>
+<select name="subtitulos[]"   multiple class="form-control" required placeholder="Escoja un subtitulo"
+  oninvalid="this.setCustomValidity('Escoja un subtitulo')"
+  oninput="this.setCustomValidity('')" >
 
+  <?php
+  $comboact2="";
+  //validamos cual de los ids es el que tiene que estar seleccionado en el combo box
+  $validarcombo=false;
+  if(isset($serieObject)){
+    $validarcombo=true;
+    $subtitles_serie = listsubtitlesSerie($serieId);
+  }
+  //fin de validacion
 
+  $subtitles = listlanguages();		
 
-      <div class="form-group">
+    if(count($subtitles)> 0) 
+    { 
+      foreach($subtitles as $subtitle)
+      {
+        $idsubtitle=$subtitle->getId();
+        $dessubtitle=$subtitle->getLanguage_name();  
+        
+        if (!$validarcombo)
+          {//si no viene de actualizar se carga normal
+            $comboact2 .=" <option value=\"{$idsubtitle}\">{$dessubtitle}</option>"; 
+          }
+  else {
+  
+  
+    foreach($subtitles_serie as $subtitlesel) { 
+      $idsubtitlesel=$subtitlesel->getId();
+  
+      if($idsubtitle==$idsubtitlesel){//si viene de actualizar y es el valor anterior se selecciona
+        $comboact2 .=" <option value=\"{$idsubtitle}\" selected>{$dessubtitle}</option>"; 
+        }
+      else{//si viene de actualizar y no es el valor anterior se carga normal
+        $comboact2 .=" <option value=\"{$idsubtitle}\">{$dessubtitle}</option>"; 
+        }
+        }
+            }
+  }
+      }
+      echo $comboact2;
+    
+    ?>     
+  </select>
+</div>      
+
+<div class="form-group">
         <input type="submit"  name="editBtn" class="btn btn-primary mt-2" value="Actualizar">
       </div>
     </form> 
@@ -237,7 +332,7 @@
    
   <div class="container text-center mt-5">
     <a href="series.php" class="btn btn-warning mt-5"> Regresar </a>
-  <div>
+    </div>
  
   <?php
     } else { 
@@ -265,7 +360,8 @@
       <?php
       }
     }
-    ?>   
+
+     ?>   
 
 <!-- Footer -->
 <?php include "footer.php" ?>
