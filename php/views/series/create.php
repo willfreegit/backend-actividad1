@@ -13,8 +13,20 @@
   $platforms = listplatforms();
   $languages = listlanguages();
 
-  if(isset($_POST['create'])) 
-    {      
+  $sendData = false;
+  $serieCreated= false;
+
+    
+  if(isset($_POST['createBtn'])) 
+    {   //Se valida si vino del boton crear;   
+      $sendData = true;
+
+    }
+
+  
+    if ($sendData)
+    {
+
       $title = $_POST['title'];
       $seasons = $_POST['seasons'];
       $episodes = $_POST['episodes'];
@@ -22,18 +34,15 @@
       $iddirector = $_POST['director'];
       $idactors = $_POST['actors'];
       $idlanguages = $_POST['languages'];
-      $add = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $idactors, $idlanguages);   
-      if($add){
-        echo "<script type='text/javascript'>alert('Serie creada correctamente!')</script>";
-        $actors = listactors();
-        $directors = listdirectors();
-        $platforms = listplatforms();
-        $languages = listlanguages();
-      } else {
-        echo "A ocurrido un error al crear la serie ";
-      }
+
+      $serieCreated = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $idactors, $idlanguages);   
+
     }
+    if (!$sendData)
+    {
+      
 ?>
+    
  
 <h1 class="text-center">Agregar nueva serie</h1>
   <div class="container">
@@ -83,14 +92,42 @@
 				<?php } ?>
       </select>
       <div class="form-group">
-        <input type="submit"  name="create" class="btn btn-primary mt-2" value="create">
+        <input type="submit"  name="createBtn" class="btn btn-primary mt-2" value="Crear">
       </div>
     </form> 
   </div>
- 
+   
   <div class="container text-center mt-5">
     <a href="series.php" class="btn btn-warning mt-5"> Regresar </a>
   <div>
  
+  <?php
+    } else { 
+      if ($serieCreated) {
+     
+  ?>
+      <div class=row>
+        <div class="alert alert-success" role="alert">
+          Serie creada correctamente.<br> 
+            <a href="series.php"> Volver al listado de series</a> 
+        </div>
+      </div>
+      <?php
+      } else {
+     
+      ?>
+      <div class=row>
+        <div class="alert alert-danger" role="alert">
+          La serie no se ha creado correctamente.<br> 
+            <a href="series.php"> Volver a intentarlo</a> 
+        </div>
+      </div>
+
+
+      <?php
+      }
+    }
+    ?>   
+
 <!-- Footer -->
 <?php include "footer.php" ?>
