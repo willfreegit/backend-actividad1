@@ -72,7 +72,7 @@
             echo " <td >{$actores}</td>";
             echo " <td >{$languages}</td>";
             echo " <td >{$subtitles}</td>";
-            echo " <td class='text-center' > <a href='update.php?edit&serie_id={$serie->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
+            echo " <td class='text-center' > <a href='update.php?id={$serie->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
             echo " <td  class='text-center'>  <a onclick='return confirmacion()' href='delete.php?delete={$serie->getId()}'  class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";
             echo " </tr> ";
            }

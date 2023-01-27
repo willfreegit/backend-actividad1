@@ -51,17 +51,23 @@
     <form action="" method="post">
       <div class="form-group">
         <label for="title" class="form-label">Titulo</label>
-        <input type="text" name="title"  class="form-control">
+        <input type="text" name="title"  class="form-control"  required placeholder="Ingrese un nombre para la serie"
+        oninvalid="this.setCustomValidity('Ingrese el nombre de la Serie')"
+        oninput="this.setCustomValidity('')"/>
       </div>
  
       <div class="form-group">
         <label for="seasons" class="form-label">Temporadas</label>
-        <input type="text" name="seasons"  class="form-control">
+        <input type="number" min="1" step="1" name="seasons"  class="form-control"  required placeholder="Ingrese las temporadas"
+        oninvalid="this.setCustomValidity('Ingrese las temporadas')"
+        oninput="this.setCustomValidity('')"/>
       </div>
      
       <div class="form-group">
         <label for="episodes" class="form-label">Episodios</label>
-        <input type="text" name="episodes"  class="form-control">
+        <input type="number" min="0" step="1" name="episodes"  class="form-control"  class="form-control"  required placeholder="Ingrese los episodios"
+        oninvalid="this.setCustomValidity('Ingrese los episodios')"
+        oninput="this.setCustomValidity('')"/>
       </div>    
       <h4>Plataforma</h4>
       <select name="platform" class="form-control">
