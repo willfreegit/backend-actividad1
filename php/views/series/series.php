@@ -36,6 +36,7 @@
               <th  scope="col">Director</th>
               <th  scope="col">Actores</th>
               <th  scope="col">Lenguajes</th>
+              <th  scope="col">Subtítulos</th>
               <th  scope="col" colspan="2" class="text-center">Operaciones CRUD</th>
             </tr>  
           </thead>
@@ -68,6 +69,7 @@
             echo " <td >{$platformName}</td>";
             echo " <td >{$directorName}</td>";
             echo " <td >{$actores}</td>";
+            echo " <td >{$languages}</td>";
             echo " <td >{$languages}</td>";
             echo " <td class='text-center' > <a href='update.php?edit&serie_id={$serie->getId()}' class='btn btn-primary'><i class='bi bi-pencil'></i> EDITAR</a> </td>";
             echo " <td  class='text-center'>  <a onclick='return confirmacion()' href='delete.php?delete={$serie->getId()}'  class='btn btn-danger'> <i class='bi bi-trash'></i> BORRAR</a> </td>";

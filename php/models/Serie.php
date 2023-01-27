@@ -118,8 +118,19 @@
         $actores = '';
         $query="SELECT * FROM actors where id in (select idactor from series_cast where idserie = $idserie)";               
         $series= mysqli_query($conn,$query);    
+        $contador=0;
         while($row= mysqli_fetch_assoc($series)){
-            $actores = $actores.$row['firstname'].' '.$row['lastname'].', ';
+            if ($contador>0)
+            {   
+                $actores = $actores.', '.$row['firstname'].' '.$row['lastname'];
+            }
+                
+            else
+                {
+                    $actores = $row['firstname'].' '.$row['lastname'];
+                    $contador=1;
+                }
+          
         } 
         CloseConn($conn);
         return $actores;
@@ -130,8 +141,18 @@
         $languages = '';
         $query="SELECT language_name FROM languages where id in (select idlanguage from series_audio_languages where idserie = $idserie)";               
         $series= mysqli_query($conn,$query);    
+        $contador=0;
         while($row= mysqli_fetch_assoc($series)){
-            $languages = $languages.$row['language_name'].', ';
+            if ($contador>0)
+            {   
+                $languages = $languages.', '.$row['language_name'];
+            }
+                
+            else
+                {
+                    $languages = $row['language_name'];
+                    $contador=1;
+                }
         } 
         CloseConn($conn);
         return $languages;
