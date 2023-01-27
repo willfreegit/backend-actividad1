@@ -31,6 +31,12 @@ require_once('../../models/Serie.php');
      return $list_actorsSerie;
    }
 
+   function listlanguagesSerie($idserie){
+    $list_languagesSerie = getlanguagesSerie_model($idserie);
+    return $list_languagesSerie;
+  }
+
+
    function saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors, $languages, $subtitles){
     
     if (empty($title)) {
@@ -95,16 +101,18 @@ require_once('../../models/Serie.php');
     return true;
    }
 
-   function updateSerie($id, $title, $seasons, $episodes, $add_actors, $delete_actors){
+   function updateSerie($id, $title, $seasons, $episodes, $idplatform, $iddirector){
     if (empty($title)) {
         echo '<p class="error alert alert-danger mt-3">Campo título obligatorio</p>';
         return;
     }
-    if (empty($seasons)) {
+   
+    
+    if (empty($id)) {
         echo '<p class="error alert alert-danger mt-3">Campo temporadas obligatorio</p>';
         return;
     }
-    if (empty($episodes)) {
+    if (empty($title)) {
         echo '<p class="error alert alert-danger mt-3">Campo episodios obligatorio</p>';
         return;
     }
@@ -116,7 +124,7 @@ require_once('../../models/Serie.php');
         echo '<p class="error alert alert-danger mt-3">El campo episodios debe ser numérico</p>';
         return;
     }   
-    updateSerie_model($id, $title, $seasons, $episodes);
+    updateSerie_model($id, $title, $seasons, $episodes, $idplatform, $iddirector);
     if(!empty($add_actors)){
         foreach ($add_actors as $selected) {
             saveSeriesCast_model($selected, $id, 'actor');

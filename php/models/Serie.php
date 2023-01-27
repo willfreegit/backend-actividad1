@@ -113,6 +113,21 @@
         return $list_actores;
     }
 
+    function getlanguagesSerie_model($idserie){
+        $conn = OpenConn();    
+        $list_languages = [];
+        $query="SELECT * FROM languages where id in (select idlanguage from series_audio_languages where idserie = $idserie)";               
+        $series= mysqli_query($conn,$query);    
+        while($row= mysqli_fetch_assoc($series)){
+            $item = new Language($row['id'], $row['language_name'], $row['language_isocode']);
+            array_push($list_languages, $item);
+        } 
+        CloseConn($conn);
+        return $list_languages;
+    }
+
+
+
     function getActoresSerie_plane($idserie){
         $conn = OpenConn();    
         $actores = '';
@@ -236,9 +251,10 @@
         } 
        }
 
-       function updateSerie_model($id, $title, $seasons, $episodes){
+       function updateSerie_model($id, $title, $seasons, $episodes, $idplatform, $iddirector){
         $conn = OpenConn();
-        $query = "UPDATE series SET title = '{$title}', seasons = '{$seasons}', episodes = '{$episodes}' WHERE id = $id";
+        $query = "UPDATE series SET title = '{$title}', seasons = '{$seasons}', episodes = '{$episodes}', idplatform='{$idplatform}', iddirector='{$iddirector}'
+         WHERE id = $id";
         $update = mysqli_query($conn, $query);
         CloseConn($conn);
        }
