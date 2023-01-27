@@ -6,10 +6,12 @@
   require_once('../../controllers/actor_controller.php');
   require_once('../../controllers/director_controller.php');
   require_once('../../controllers/platform_controller.php');
+  require_once('../../controllers/language_controller.php');
 
   $actors = listactors();
   $directors = listdirectors();
   $platforms = listplatforms();
+  $languages = listlanguages();
 
   if(isset($_POST['create'])) 
     {      
@@ -19,12 +21,14 @@
       $idplatform = $_POST['platform'];
       $iddirector = $_POST['director'];
       $idactors = $_POST['actors'];
-      $add = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $idactors);   
+      $idlanguages = $_POST['languages'];
+      $add = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $idactors, $idlanguages);   
       if($add){
         echo "<script type='text/javascript'>alert('Serie creada correctamente!')</script>";
         $actors = listactors();
         $directors = listdirectors();
         $platforms = listplatforms();
+        $languages = listlanguages();
       } else {
         echo "A ocurrido un error al crear la serie ";
       }
@@ -71,9 +75,15 @@
 					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getFirstName().' '.$row->getLastName(); ?></option>
 				<?php } ?>
       </select>
-
+      <h4>Idiomas</h4>
+      <select name="languages[]" multiple class="form-control">
+        <?php
+        foreach($languages as $row) { ?>
+					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getLanguage_name(); ?></option>
+				<?php } ?>
+      </select>
       <div class="form-group">
-        <input type="submit"  name="create" class="btn btn-primary mt-2" value="Crear">
+        <input type="submit"  name="create" class="btn btn-primary mt-2" value="create">
       </div>
     </form> 
   </div>

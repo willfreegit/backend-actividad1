@@ -125,6 +125,18 @@
         return $actores;
     }
 
+    function getLanguageById($idserie){
+        $conn = OpenConn();    
+        $languages = '';
+        $query="SELECT language_name FROM languages where id in (select idlanguage from series_audio_languages where idserie = $idserie)";               
+        $series= mysqli_query($conn,$query);    
+        while($row= mysqli_fetch_assoc($series)){
+            $languages = $languages.$row['language_name'].', ';
+        } 
+        CloseConn($conn);
+        return $languages;
+       }
+
     function saveSerie_model($title, $seasons, $episodes, $idplatform, $iddirector){
         $id = -1;
         $conn = OpenConn();
@@ -146,6 +158,16 @@
         CloseConn($conn);
         if (!$add_serie) {
             echo "A ocurrido un error al crear seriescast ";
+        } 
+       }
+
+       function saveSeriesLanguaje_model($idlanguage, $idserie){
+        $conn = OpenConn();
+        $query= "INSERT INTO series_audio_languages(idlanguage, idserie) VALUES('{$idlanguage}','{$idserie}')";
+        $add_languages = mysqli_query($conn,$query);
+        CloseConn($conn);
+        if (!$add_languages) {
+            echo "A ocurrido un error al crear series lenguajes ";
         } 
        }
 
