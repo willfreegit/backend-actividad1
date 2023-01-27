@@ -12,6 +12,7 @@
   $directors = listdirectors();
   $platforms = listplatforms();
   $languages = listlanguages();
+  $subtitles = listlanguages();
 
   $sendData = false;
   $serieCreated= false;
@@ -34,8 +35,9 @@
       $iddirector = $_POST['director'];
       $idactors = $_POST['actors'];
       $idlanguages = $_POST['languages'];
+      $idsubtitles = $_POST['subtitles'];
 
-      $serieCreated = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $idactors, $idlanguages);   
+      $serieCreated = saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $idactors, $idlanguages,$idsubtitles);   
 
     }
     if (!$sendData)
@@ -91,6 +93,14 @@
 					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getLanguage_name(); ?></option>
 				<?php } ?>
       </select>
+      <h4>Subtítulos</h4>
+      <select name="subtitles[]" multiple class="form-control">
+        <?php
+        foreach($subtitles as $row) { ?>
+					<option value="<?php echo $row->getId(); ?>"><?php echo $row->getLanguage_name(); ?></option>
+				<?php } ?>
+      </select>
+
       <div class="form-group">
         <input type="submit"  name="createBtn" class="btn btn-primary mt-2" value="Crear">
       </div>

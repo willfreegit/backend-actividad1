@@ -31,7 +31,7 @@ require_once('../../models/Serie.php');
      return $list_actorsSerie;
    }
 
-   function saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors, $languages){
+   function saveSerie($title, $seasons, $episodes, $idplatform, $iddirector, $actors, $languages, $subtitles){
     
     if (empty($title)) {
         echo '<p class="error alert alert-danger mt-3">Campo título obligatorio</p>';
@@ -61,6 +61,11 @@ require_once('../../models/Serie.php');
         echo '<p class="error alert alert-danger mt-3">Debe seleccionar por lo menos un lenguaje</p>';
         return;
     }
+    
+    if (empty($subtitles)) {
+        echo '<p class="error alert alert-danger mt-3">Debe seleccionar por lo menos un lenguaje como subtitulo</p>';
+        return;
+    }
     if (!is_numeric($seasons)) {
         echo '<p class="error alert alert-danger mt-3">El campo seasons debe ser numérico</p>';
         return;
@@ -80,6 +85,13 @@ require_once('../../models/Serie.php');
             saveSeriesLanguaje_model($selected, $id);
         }
     } 
+    if ($id > 0) {
+        foreach ($subtitles as $selected) {
+            saveSeriesSubtitle_model($selected, $id);
+            echo $selected;
+        }
+    } 
+
     return true;
    }
 

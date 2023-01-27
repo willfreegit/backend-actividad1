@@ -90,7 +90,7 @@
     function getSeries_model(){
         $conn = OpenConn();    
         $list_series = [];
-        $query="SELECT * FROM series";               
+        $query="SELECT * FROM series order by id";               
         $series= mysqli_query($conn,$query);    
         while($row= mysqli_fetch_assoc($series)){
             $item = new Serie($row['id'], $row['title'], $row['seasons'], $row['episodes'], $row['idplatform'], $row['iddirector']);
@@ -158,6 +158,29 @@
         return $languages;
        }
 
+       function getSubtitleById($idserie){
+        $conn = OpenConn();    
+        $languages = '';
+        $query="SELECT language_name FROM languages where id in (select idlanguage from series_subtitles where idserie = $idserie)";               
+        $series= mysqli_query($conn,$query);    
+        $contador=0;
+        while($row= mysqli_fetch_assoc($series)){
+            if ($contador>0)
+            {   
+                $languages = $languages.', '.$row['language_name'];
+            }
+                
+            else
+                {
+                    $languages = $row['language_name'];
+                    $contador=1;
+                }
+        } 
+        CloseConn($conn);
+        return $languages;
+       }
+
+
     function saveSerie_model($title, $seasons, $episodes, $idplatform, $iddirector){
         $id = -1;
         $conn = OpenConn();
@@ -191,6 +214,17 @@
             echo "A ocurrido un error al crear series lenguajes ";
         } 
        }
+
+       function saveSeriesSubtitle_model($idlanguage, $idserie){
+        $conn = OpenConn();
+        $query= "INSERT INTO series_subtitles(idlanguage, idserie) VALUES('{$idlanguage}','{$idserie}')";
+        $add_languages = mysqli_query($conn,$query);
+        CloseConn($conn);
+        if (!$add_languages) {
+            echo "A ocurrido un error al crear series subtitulos ";
+        } 
+       }
+
 
        function deleteSeriesCast_model($idactor, $idserie){
         $conn = OpenConn();
